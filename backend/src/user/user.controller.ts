@@ -28,11 +28,19 @@ export class UserController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of users returned successfully',
+  })
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a user by ID' })
+  @ApiResponse({ status: 200, description: 'User found' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
@@ -41,6 +49,7 @@ export class UserController {
   @ApiOperation({ summary: 'Update a user by ID' })
   @ApiResponse({ status: 200, description: 'User updated successfully' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   @ApiBody({ type: UpdateUserDto })
   update(
     @Param('id') id: string,
@@ -50,6 +59,9 @@ export class UserController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a user by ID' })
+  @ApiResponse({ status: 200, description: 'User deleted successfully' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }
