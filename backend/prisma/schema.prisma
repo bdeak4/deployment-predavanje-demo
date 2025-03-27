@@ -18,9 +18,81 @@ model User {
   role      UserRole
   email     String   @unique
   password  String
+
+  quizResults UserQuizResult[] @relation("UserResults")
+}
+
+model Category {
+  id          String @id @default(uuid())
+  name        QuizCategory
+  createdAt   DateTime @default(now())
+
+  quizzes     Quiz[]   @relation("CategoryQuizzes")
+}
+
+model Quiz {
+  id            String   @id @default(uuid())
+  title         String
+  img           String
+  createdAt     DateTime @default(now())
+
+  categoryId    String
+  category      Category @relation("CategoryQuizzes", fields: [categoryId], references: [id])
+
+  questions     Question[] @relation("QuizQuestions")
+
+  userResults   UserQuizResult[] @relation("QuizResults")
+}
+
+model Question {
+  id          String @id @default(uuid())
+  text        String
+  type        QuestionType
+
+  quizId      String 
+  quiz        Quiz @relation("QuizQuestions", fields: [quizId], references: [id])
+
+  answers     Answer[] @relation("QuestionAnswers")
+}
+
+model Answer {
+  id          String @id @default(uuid())
+  text        String
+  isCorrect   Boolean
+
+  questionId  String
+  question    Question @relation("QuestionAnswers", fields: [questionId], references: [id])
+}
+
+model UserQuizResult {
+  id            String @id @default(uuid())
+  score         Int
+  completedAt   DateTime @default(now())
+
+  userId        String
+  user          User @relation("UserResults", fields: [userId], references: [id])
+
+  quizId        String
+  quiz          Quiz @relation("QuizResults", fields: [quizId], references: [id])
 }
 
 enum UserRole {
-  Admin
-  User
+  ADMIN
+  USER
 }
+
+enum QuizCategory {
+  GENERAL
+  SPORT
+  SCIENCE
+  HISTORY
+  GEOGRAPHY
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_IN_THE_BLANK
+  MATCHING
+}
+
