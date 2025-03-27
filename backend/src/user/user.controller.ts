@@ -10,7 +10,8 @@ import {
 import { UserService } from './user.service';
 import { Prisma } from '@prisma/client';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -37,6 +38,10 @@ export class UserController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update a user by ID' })
+  @ApiResponse({ status: 200, description: 'User updated successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiBody({ type: UpdateUserDto })
   update(
     @Param('id') id: string,
     @Body() updateUserDto: Prisma.UserUpdateInput,
