@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('API Dokumentacija za Internship-Quiz aplikaciju')
+    .setTitle('Internship-Quiz API')
     .setDescription('Opis svih API endpoints')
     .setVersion('1.0')
     .build();
@@ -15,5 +15,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
