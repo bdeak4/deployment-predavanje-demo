@@ -8,7 +8,6 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { Prisma } from '@prisma/client';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,7 +22,7 @@ export class UserController {
   @ApiResponse({ status: 201, description: 'User successfully created' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiBody({ type: CreateUserDto })
-  create(@Body() createUserDto: Prisma.UserCreateInput) {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
@@ -51,10 +50,7 @@ export class UserController {
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiResponse({ status: 404, description: 'User not found' })
   @ApiBody({ type: UpdateUserDto })
-  update(
-    @Param('id') id: string,
-    @Body() updateUserDto: Prisma.UserUpdateInput,
-  ) {
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
