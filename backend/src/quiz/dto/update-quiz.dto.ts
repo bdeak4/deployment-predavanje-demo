@@ -15,7 +15,7 @@ export class UpdateQuizDto extends PartialType(CreateQuizDto) {
 
   @ApiProperty({
     example:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Panthera_tigris_tigris.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Emirates_Stadium_Arsenal.jpg',
     description: 'Quiz image URL',
     type: 'string',
   })
