@@ -7,25 +7,32 @@ import { DatabaseService } from 'src/database/database.service';
 export class QuizService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createQuizDto: CreateQuizDto) {
+  async create(createQuizDto: CreateQuizDto) {
     return this.databaseService.quiz.create({
       data: createQuizDto,
     });
   }
 
-  findAll() {
-    return `This action returns all quiz`;
+  async findAll() {
+    return this.databaseService.quiz.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} quiz`;
+  async findOne(id: string) {
+    return this.databaseService.quiz.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateQuizDto: UpdateQuizDto) {
-    return `This action updates a #${id} quiz`;
+  async update(id: string, updateQuizDto: UpdateQuizDto) {
+    return this.databaseService.quiz.update({
+      where: { id },
+      data: updateQuizDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} quiz`;
+  async remove(id: string) {
+    return this.databaseService.quiz.delete({
+      where: { id },
+    });
   }
 }
