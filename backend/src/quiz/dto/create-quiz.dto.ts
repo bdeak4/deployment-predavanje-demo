@@ -23,7 +23,6 @@ export class CreateQuizDto {
   img: string;
 
   @ApiProperty({ description: 'Quiz ID', type: 'string' })
-  @IsEnum(QuizCategory)
   @IsNotEmpty()
   categoryId: string;
 }

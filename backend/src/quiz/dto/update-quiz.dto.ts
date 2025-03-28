@@ -1,5 +1,4 @@
 import { IsString, IsOptional, IsEnum } from 'class-validator';
-import { QuizCategory } from '@prisma/client';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateQuizDto } from './create-quiz.dto';
 
@@ -24,7 +23,6 @@ export class UpdateQuizDto extends PartialType(CreateQuizDto) {
   img?: string;
 
   @ApiProperty({ description: 'Quiz ID', type: 'string' })
-  @IsEnum(QuizCategory)
   @IsOptional()
   categoryId?: string;
 }
