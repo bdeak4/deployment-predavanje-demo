@@ -1,25 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class CategoryService {
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+  constructor(private readonly databaseService: DatabaseService) {}
+  async create(createCategoryDto: CreateCategoryDto) {
+    return this.databaseService.category.create({
+      data: createCategoryDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all category`;
+  async findAll() {
+    return this.databaseService.category.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(id: string) {
+    return this.databaseService.category.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateCategoryDto: CreateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async update(id: string, updateCategoryDto: CreateCategoryDto) {
+    return this.databaseService.category.update({
+      where: { id },
+      data: updateCategoryDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: string) {
+    return this.databaseService.category.delete({
+      where: { id },
+    });
   }
 }
