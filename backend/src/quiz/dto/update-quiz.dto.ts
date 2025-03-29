@@ -22,7 +22,8 @@ export class UpdateQuizDto extends PartialType(CreateQuizDto) {
   @IsOptional()
   img?: string;
 
-  @ApiProperty({ description: 'Quiz ID', type: 'string' })
+  @ApiProperty({ description: 'Quiz category ID', type: 'string' })
+  @IsString()
   @IsOptional()
   categoryId?: string;
 }

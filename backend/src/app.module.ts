@@ -5,9 +5,12 @@ import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { QuizModule } from './quiz/quiz.module';
 import { CategoryModule } from './category/category.module';
+import { QuestionModule } from './question/question.module';
+import { AnswerModule } from './answer/answer.module';
+import { UserQuizResultModule } from './user-quiz-result/user-quiz-result.module';
 
 @Module({
-  imports: [UserModule, DatabaseModule, QuizModule, CategoryModule],
+  imports: [UserModule, DatabaseModule, QuizModule, CategoryModule, QuestionModule, AnswerModule, UserQuizResultModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateQuizDto {
@@ -21,7 +21,8 @@ export class CreateQuizDto {
   @IsNotEmpty()
   img: string;
 
-  @ApiProperty({ description: 'Quiz ID', type: 'string' })
+  @ApiProperty({ description: 'Quiz category ID', type: 'string' })
+  @IsString()
   @IsNotEmpty()
   categoryId: string;
 }
