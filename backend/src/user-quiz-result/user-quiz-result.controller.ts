@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { UserQuizResultService } from './user-quiz-result.service';
 import { CreateUserQuizResultDto } from './dto/create-user-quiz-result.dto';
+import { UpdateUserQuizResultDto } from './dto/update-user-quiz-result.dto';
 
 @Controller('user-quiz-result')
 export class UserQuizResultController {
@@ -32,7 +33,7 @@ export class UserQuizResultController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateUserQuizResultDto: CreateUserQuizResultDto,
+    @Body() updateUserQuizResultDto: UpdateUserQuizResultDto,
   ) {
     return this.userQuizResultService.update(+id, updateUserQuizResultDto);
   }

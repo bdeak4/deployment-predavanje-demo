@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserQuizResultDto {
@@ -10,4 +10,14 @@ export class CreateUserQuizResultDto {
   @IsNumber()
   @IsNotEmpty()
   score: number;
+
+  @ApiProperty({ description: 'User ID', type: 'string' })
+  @IsNotEmpty()
+  @IsString()
+  userId: string;
+
+  @ApiProperty({ description: 'Quiz ID', type: 'string' })
+  @IsNotEmpty()
+  @IsString()
+  quizId: string;
 }
