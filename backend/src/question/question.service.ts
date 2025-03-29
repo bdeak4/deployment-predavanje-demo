@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class QuestionService {
+  constructor(private readonly databaseService: DatabaseService) {}
   create(createQuestionDto: CreateQuestionDto) {
-    return 'This action adds a new question';
+    return this.databaseService.question.create({
+      data: createQuestionDto,
+    });
   }
 
   findAll() {
-    return `This action returns all question`;
+    return this.databaseService.question.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} question`;
+  findOne(id: string) {
+    return this.databaseService.question.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`;
+  update(id: string, updateQuestionDto: UpdateQuestionDto) {
+    return this.databaseService.question.update({
+      where: { id },
+      data: updateQuestionDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} question`;
+  remove(id: string) {
+    return this.databaseService.question.delete({
+      where: { id },
+    });
   }
 }
