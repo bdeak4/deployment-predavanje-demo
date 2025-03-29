@@ -4,6 +4,15 @@ import { IsEmail, IsEnum, IsOptional, MinLength } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
+  @ApiProperty({
+    example: 'Josip',
+    description: 'User name',
+    type: 'string',
+  })
+  @IsOptional()
+  @MinLength(3)
+  name: string;
+
   @ApiProperty({ example: 'newuser@example.com', required: false })
   @IsOptional()
   @IsEmail()

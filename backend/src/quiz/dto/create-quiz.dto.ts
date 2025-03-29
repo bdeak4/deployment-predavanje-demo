@@ -1,5 +1,4 @@
 import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
-import { QuizCategory } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateQuizDto {
