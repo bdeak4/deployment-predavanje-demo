@@ -1,34 +1,67 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Question')
 @Controller('question')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new question' })
+  @ApiResponse({ status: 201, description: 'Question successfully created' })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiBody({ type: CreateQuestionDto })
   create(@Body() createQuestionDto: CreateQuestionDto) {
     return this.questionService.create(createQuestionDto);
   }
 
   @Get()
+  @ApiOperation({ summary: 'Get all questions' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of questions returned successfully',
+  })
   findAll() {
     return this.questionService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a question by ID' })
+  @ApiResponse({ status: 200, description: 'Question found' })
+  @ApiResponse({ status: 404, description: 'Question not found' })
   findOne(@Param('id') id: string) {
-    return this.questionService.findOne(+id);
+    return this.questionService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
-    return this.questionService.update(+id, updateQuestionDto);
+  @ApiOperation({ summary: 'Update a question by ID' })
+  @ApiResponse({ status: 200, description: 'Question updated successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiResponse({ status: 404, description: 'Question not found' })
+  @ApiBody({ type: UpdateQuestionDto })
+  update(
+    @Param('id') id: string,
+    @Body() updateQuestionDto: UpdateQuestionDto,
+  ) {
+    return this.questionService.update(id, updateQuestionDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a question by ID' })
+  @ApiResponse({ status: 200, description: 'Question deleted successfully' })
+  @ApiResponse({ status: 404, description: 'Question not found' })
   remove(@Param('id') id: string) {
-    return this.questionService.remove(+id);
+    return this.questionService.remove(id);
   }
 }

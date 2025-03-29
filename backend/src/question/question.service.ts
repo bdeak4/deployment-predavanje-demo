@@ -6,30 +6,30 @@ import { DatabaseService } from 'src/database/database.service';
 @Injectable()
 export class QuestionService {
   constructor(private readonly databaseService: DatabaseService) {}
-  create(createQuestionDto: CreateQuestionDto) {
+  async create(createQuestionDto: CreateQuestionDto) {
     return this.databaseService.question.create({
       data: createQuestionDto,
     });
   }
 
-  findAll() {
+  async findAll() {
     return this.databaseService.question.findMany();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.databaseService.question.findUnique({
       where: { id },
     });
   }
 
-  update(id: string, updateQuestionDto: UpdateQuestionDto) {
+  async update(id: string, updateQuestionDto: UpdateQuestionDto) {
     return this.databaseService.question.update({
       where: { id },
       data: updateQuestionDto,
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.databaseService.question.delete({
       where: { id },
     });
