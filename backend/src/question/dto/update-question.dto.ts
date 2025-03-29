@@ -21,9 +21,4 @@ export class UpdateQuestionDto extends PartialType(CreateQuestionDto) {
   @IsEnum(QuestionType)
   @IsOptional()
   type?: QuestionType;
-
-  @ApiProperty({ description: 'Quiz ID', type: 'string' })
-  @IsString()
-  @IsOptional()
-  quizId?: string;
 }
