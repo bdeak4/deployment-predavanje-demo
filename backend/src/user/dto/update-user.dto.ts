@@ -12,11 +12,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @MinLength(3, { message: 'Name must be at least 3 characters long' })
   name?: string;
 
-  @ApiProperty({ example: 'newuser@example.com', required: false })
-  @IsOptional()
-  @IsEmail({}, { message: 'Email must be a valid email address' })
-  email?: string;
-
   @ApiProperty({ example: 'newpassword123', required: false })
   @IsOptional()
   @MinLength(6, { message: 'Password must be at least 6 characters long' })
