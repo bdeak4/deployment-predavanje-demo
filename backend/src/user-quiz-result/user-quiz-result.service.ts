@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserQuizResultDto } from './dto/create-user-quiz-result.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { UpdateUserQuizResultDto } from './dto/update-user-quiz-result.dto';
@@ -23,7 +23,8 @@ export class UserQuizResultService {
       },
     );
 
-    if (!userQuizResult) throw new Error('User quiz result not found');
+    if (!userQuizResult)
+      throw new BadRequestException('User quiz result not found');
 
     return userQuizResult;
   }
@@ -35,7 +36,8 @@ export class UserQuizResultService {
       },
     );
 
-    if (!userQuizResult) throw new Error('User quiz result not found');
+    if (!userQuizResult)
+      throw new BadRequestException('User quiz result not found');
 
     return this.databaseService.userQuizResult.update({
       where: { id },
@@ -50,7 +52,8 @@ export class UserQuizResultService {
       },
     );
 
-    if (!userQuizResult) throw new Error('User quiz result not found');
+    if (!userQuizResult)
+      throw new BadRequestException('User quiz result not found');
 
     return this.databaseService.userQuizResult.delete({
       where: { id },
@@ -85,6 +88,19 @@ export class UserQuizResultService {
       };
     });
 
-    return formattedScores;
+    return formattedScores.sort((a, b) => b.totalScore - a.totalScore);
+  }
+
+  async userRating(userId: string) {
+    const leaderboard = await this.scoreLeaderboard();
+
+    const userRatingIndex = leaderboard.findIndex(
+      (userResult) => userResult.id === userId,
+    );
+
+    if (userRatingIndex === -1)
+      throw new BadRequestException('User rating not found');
+
+    return userRatingIndex + 1;
   }
 }

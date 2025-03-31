@@ -37,13 +37,27 @@ export class UserQuizResultController {
   }
 
   @Get('leaderboard')
-  @ApiOperation({ summary: 'Get all quiz results' })
+  @ApiOperation({ summary: 'Get user quiz leaderboard' })
   @ApiResponse({
     status: 200,
-    description: 'List of quiz results returned successfully',
+    description: 'List of user stats returned successfully',
   })
   getScoreLeaderboard() {
     return this.userQuizResultService.scoreLeaderboard();
+  }
+
+  @Get('leaderboard/:id')
+  @ApiOperation({ summary: 'Get user rating' })
+  @ApiResponse({
+    status: 200,
+    description: 'User rating found',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'User rating not found',
+  })
+  getUserRating(@Param('id') id: string) {
+    return this.userQuizResultService.userRating(id);
   }
 
   @Get(':id')

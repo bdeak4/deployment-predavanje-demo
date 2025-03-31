@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -21,7 +21,7 @@ export class QuestionService {
       where: { id },
     });
 
-    if (!question) throw new Error('Question not found');
+    if (!question) throw new BadRequestException('Question not found');
 
     return question;
   }
@@ -31,7 +31,7 @@ export class QuestionService {
       where: { id },
     });
 
-    if (!question) throw new Error('Question not found');
+    if (!question) throw new BadRequestException('Question not found');
 
     return this.databaseService.question.update({
       where: { id },
@@ -44,7 +44,7 @@ export class QuestionService {
       where: { id },
     });
 
-    if (!question) throw new Error('Question not found');
+    if (!question) throw new BadRequestException('Question not found');
 
     return this.databaseService.question.delete({
       where: { id },

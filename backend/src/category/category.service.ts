@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { DatabaseService } from 'src/database/database.service';
 
@@ -12,7 +12,8 @@ export class CategoryService {
       },
     );
 
-    if (existingCategoryName) throw new Error('Category name already exists');
+    if (existingCategoryName)
+      throw new BadRequestException('Category name already exists');
 
     return this.databaseService.category.create({
       data: createCategoryDto,
@@ -28,7 +29,7 @@ export class CategoryService {
       where: { id },
     });
 
-    if (!category) throw new Error('Category not found');
+    if (!category) throw new BadRequestException('Category not found');
 
     return category;
   }
@@ -38,7 +39,7 @@ export class CategoryService {
       where: { id },
     });
 
-    if (!category) throw new Error('Category not found');
+    if (!category) throw new BadRequestException('Category not found');
 
     const existingCategoryName = await this.databaseService.category.findUnique(
       {
@@ -46,7 +47,8 @@ export class CategoryService {
       },
     );
 
-    if (existingCategoryName) throw new Error('Category name already exists');
+    if (existingCategoryName)
+      throw new BadRequestException('Category name already exists');
 
     return this.databaseService.category.update({
       where: { id },
@@ -59,7 +61,7 @@ export class CategoryService {
       where: { id },
     });
 
-    if (!category) throw new Error('Category not found');
+    if (!category) throw new BadRequestException('Category not found');
 
     return this.databaseService.category.delete({
       where: { id },
