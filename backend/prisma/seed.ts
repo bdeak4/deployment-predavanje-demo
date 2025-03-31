@@ -1,47 +1,61 @@
 import { PrismaClient, QuestionType, UserRole } from '@prisma/client';
+import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.user.createMany({
-    data: [
-      {
-        id: '4638ff16-0da8-11f0-8d3d-325096b39f47',
-        name: 'Admin',
-        email: 'admin@gmail.com',
-        password: 'admin123',
-        role: UserRole.ADMIN,
+  const users = [
+    {
+      id: '4638ff16-0da8-11f0-8d3d-325096b39f47',
+      name: 'Admin',
+      email: 'admin@gmail.com',
+      password: 'admin123',
+      role: UserRole.ADMIN,
+    },
+    {
+      id: '5252edde-0da8-11f0-9169-325096b39f47',
+      name: 'Josip',
+      email: 'josip@gmail.com',
+      password: 'josip123',
+      role: UserRole.USER,
+    },
+    {
+      id: '64ffd690-0da8-11f0-85c8-325096b39f47',
+      name: 'Jelena',
+      email: 'jelena@gmail.com',
+      password: 'jelena123',
+      role: UserRole.USER,
+    },
+    {
+      id: '6a7b8c9d-0da8-11f0-bd5b-325096b39f47',
+      name: 'Marko',
+      email: 'marko@gmail.com',
+      password: 'marko123',
+      role: UserRole.USER,
+    },
+    {
+      id: '7b8c9d0e-0da8-11f0-bd5b-325096b39f47',
+      name: 'Frane',
+      email: 'frane@gmail.com',
+      password: 'frane123',
+      role: UserRole.USER,
+    },
+  ];
+
+  for (const user of users) {
+    const hashedPassword = await hash(user.password, 10);
+    user.password = hashedPassword;
+
+    await prisma.user.create({
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        role: user.role,
       },
-      {
-        id: '5252edde-0da8-11f0-9169-325096b39f47',
-        name: 'Josip',
-        email: 'josip@gmail.com',
-        password: 'josip123',
-        role: UserRole.USER,
-      },
-      {
-        id: '64ffd690-0da8-11f0-85c8-325096b39f47',
-        name: 'Jelena',
-        email: 'jelena@gmail.com',
-        password: 'jelena123',
-        role: UserRole.USER,
-      },
-      {
-        id: '6a7b8c9d-0da8-11f0-bd5b-325096b39f47',
-        name: 'Marko',
-        email: 'marko@gmail.com',
-        password: 'marko123',
-        role: UserRole.USER,
-      },
-      {
-        id: '7b8c9d0e-0da8-11f0-bd5b-325096b39f47',
-        name: 'Frane',
-        email: 'frane@gmail.com',
-        password: 'frane123',
-        role: UserRole.USER,
-      },
-    ],
-  });
+    });
+  }
 
   await prisma.category.createMany({
     data: [
