@@ -17,12 +17,26 @@ export class UserQuizResultService {
   }
 
   async findOne(id: string) {
-    return this.databaseService.userQuizResult.findUnique({
-      where: { id },
-    });
+    const userQuizResult = await this.databaseService.userQuizResult.findUnique(
+      {
+        where: { id },
+      },
+    );
+
+    if (!userQuizResult) throw new Error('User quiz result not found');
+
+    return userQuizResult;
   }
 
   async update(id: string, updateUserQuizResultDto: UpdateUserQuizResultDto) {
+    const userQuizResult = await this.databaseService.userQuizResult.findUnique(
+      {
+        where: { id },
+      },
+    );
+
+    if (!userQuizResult) throw new Error('User quiz result not found');
+
     return this.databaseService.userQuizResult.update({
       where: { id },
       data: updateUserQuizResultDto,
@@ -30,6 +44,14 @@ export class UserQuizResultService {
   }
 
   async remove(id: string) {
+    const userQuizResult = await this.databaseService.userQuizResult.findUnique(
+      {
+        where: { id },
+      },
+    );
+
+    if (!userQuizResult) throw new Error('User quiz result not found');
+
     return this.databaseService.userQuizResult.delete({
       where: { id },
     });
