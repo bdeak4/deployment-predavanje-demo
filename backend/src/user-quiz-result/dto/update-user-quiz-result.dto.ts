@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateUserQuizResultDto {
@@ -7,10 +7,8 @@ export class UpdateUserQuizResultDto {
     description: 'Score of the user in the quiz',
     type: 'number',
   })
-  @IsNumber(
-    { allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 },
-    { message: 'Score must be a number' },
-  )
+  @IsInt({ message: 'Score must be an integer' })
+  @Min(0, { message: 'Score must be a positive number' })
   @IsNotEmpty({ message: 'Score is required' })
   score: number;
 }

@@ -20,8 +20,13 @@ export class QuizService {
     });
   }
 
-  async findAll() {
-    return this.databaseService.quiz.findMany();
+  async findAll(title?: string, categoryId?: string) {
+    return this.databaseService.quiz.findMany({
+      where: {
+        ...(title && { title: { contains: title, mode: 'insensitive' } }),
+        ...(categoryId && { categoryId }),
+      },
+    });
   }
 
   async findOne(id: string) {

@@ -6,16 +6,18 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { SearchQuizDto } from './dto/search-quiz.dto';
 
 @ApiTags('Quiz')
 @Controller('quiz')
 export class QuizController {
-  constructor(private readonly userService: QuizService) {}
+  constructor(private readonly quizService: QuizService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new quiz' })
@@ -23,17 +25,17 @@ export class QuizController {
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiBody({ type: CreateQuizDto })
   create(@Body() createQuizDto: CreateQuizDto) {
-    return this.userService.create(createQuizDto);
+    return this.quizService.create(createQuizDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all quizes' })
+  @ApiOperation({ summary: 'Get all quizes or by parametars' })
   @ApiResponse({
     status: 200,
     description: 'List of quizes returned successfully',
   })
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Query() searchQuiz: SearchQuizDto) {
+    return this.quizService.findAll(searchQuiz.title, searchQuiz.categoryId);
   }
 
   @Get(':id')
@@ -41,7 +43,7 @@ export class QuizController {
   @ApiResponse({ status: 200, description: 'Quiz found' })
   @ApiResponse({ status: 404, description: 'Quiz not found' })
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.quizService.findOne(id);
   }
 
   @Patch(':id')
@@ -51,7 +53,7 @@ export class QuizController {
   @ApiResponse({ status: 404, description: 'Quiz not found' })
   @ApiBody({ type: UpdateQuizDto })
   update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {
-    return this.userService.update(id, updateQuizDto);
+    return this.quizService.update(id, updateQuizDto);
   }
 
   @Delete(':id')
@@ -59,6 +61,6 @@ export class QuizController {
   @ApiResponse({ status: 200, description: 'Quiz deleted successfully' })
   @ApiResponse({ status: 404, description: 'Quiz not found' })
   remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+    return this.quizService.remove(id);
   }
 }
