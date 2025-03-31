@@ -56,4 +56,35 @@ export class UserQuizResultService {
       where: { id },
     });
   }
+
+  async scoreLeaderboard() {
+    const scores = await this.databaseService.userQuizResult.groupBy({
+      by: ['userId'],
+      _sum: { score: true },
+      _count: { quizId: true },
+    });
+
+    if (scores.length === 0) {
+      return [];
+    }
+
+    const userIds = scores.map((score) => score.userId);
+
+    const users = await this.databaseService.user.findMany({
+      where: { id: { in: userIds } },
+      select: { id: true, name: true },
+    });
+
+    const formattedScores = scores.map((score) => {
+      const user = users.find((u) => u.id === score.userId);
+      return {
+        id: user?.id,
+        name: user?.name || 'Nepoznati korisnik',
+        totalScore: score._sum.score || 0,
+        quizCount: score._count.quizId,
+      };
+    });
+
+    return formattedScores;
+  }
 }

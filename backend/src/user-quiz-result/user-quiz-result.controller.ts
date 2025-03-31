@@ -36,6 +36,16 @@ export class UserQuizResultController {
     return this.userQuizResultService.findAll();
   }
 
+  @Get('leaderboard')
+  @ApiOperation({ summary: 'Get all quiz results' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of quiz results returned successfully',
+  })
+  getScoreLeaderboard() {
+    return this.userQuizResultService.scoreLeaderboard();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a quiz result by ID' })
   @ApiResponse({ status: 200, description: 'Quiz result found' })
