@@ -38,7 +38,7 @@ model Quiz {
   createdAt     DateTime @default(now())
 
   categoryId    String
-  category      Category @relation("CategoryQuizzes", fields: [categoryId], references: [id])
+  category      Category @relation("CategoryQuizzes", fields: [categoryId], references: [id], onDelete: Cascade)
 
   questions     Question[] @relation("QuizQuestions")
 
@@ -51,7 +51,7 @@ model Question {
   type        QuestionType
 
   quizId      String 
-  quiz        Quiz @relation("QuizQuestions", fields: [quizId], references: [id])
+  quiz        Quiz @relation("QuizQuestions", fields: [quizId], references: [id], onDelete: Cascade)
 
   answers     Answer[] @relation("QuestionAnswers")
 }
@@ -62,7 +62,7 @@ model Answer {
   isCorrect   Boolean
 
   questionId  String
-  question    Question @relation("QuestionAnswers", fields: [questionId], references: [id])
+  question    Question @relation("QuestionAnswers", fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 model UserQuizResult {
@@ -71,10 +71,10 @@ model UserQuizResult {
   completedAt   DateTime @default(now())
 
   userId        String
-  user          User @relation("UserResults", fields: [userId], references: [id])
+  user          User @relation("UserResults", fields: [userId], references: [id], onDelete: Cascade)
 
   quizId        String
-  quiz          Quiz @relation("QuizResults", fields: [quizId], references: [id])
+  quiz          Quiz @relation("QuizResults", fields: [quizId], references: [id], onDelete: Cascade)
 }
 
 enum UserRole {

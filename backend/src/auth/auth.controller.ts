@@ -19,8 +19,8 @@ export class AuthController {
   }
 
   @Post('register')
-  @ApiOperation({ summary: 'Login user' })
-  @ApiResponse({ status: 201, description: 'User successfully logged in' })
+  @ApiOperation({ summary: 'Register user' })
+  @ApiResponse({ status: 201, description: 'User successfully registered' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiBody({ type: RegisterDto })
   async register(
