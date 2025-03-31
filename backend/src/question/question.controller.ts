@@ -36,6 +36,13 @@ export class QuestionController {
     return this.questionService.findAll();
   }
 
+  @Get('quiz/:id')
+  @ApiOperation({ summary: 'Get quiz questions' })
+  @ApiResponse({ status: 200, description: 'Questions found' })
+  findQuizQuestions(@Param('id') id: string) {
+    return this.questionService.findQuizQuestions(id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a question by ID' })
   @ApiResponse({ status: 200, description: 'Question found' })

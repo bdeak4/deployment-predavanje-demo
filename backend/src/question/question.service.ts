@@ -50,4 +50,21 @@ export class QuestionService {
       where: { id },
     });
   }
+
+  async findQuizQuestions(id: string) {
+    const existingQuiz = await this.databaseService.quiz.findUnique({
+      where: { id },
+    });
+
+    if (!existingQuiz)
+      throw new BadRequestException({ message: 'Quiz not found' });
+
+    const quizQuestions = await this.databaseService.question.findMany({
+      where: {
+        quizId: id,
+      },
+    });
+
+    return quizQuestions;
+  }
 }

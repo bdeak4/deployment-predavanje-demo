@@ -36,6 +36,13 @@ export class AnswerController {
     return this.answerService.findAll();
   }
 
+  @Get('question/:id')
+  @ApiOperation({ summary: 'Get question answers' })
+  @ApiResponse({ status: 200, description: 'Answers found' })
+  findQuestionAnswers(@Param('id') id: string) {
+    return this.answerService.findQuestionAnswers(id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a answer by ID' })
   @ApiResponse({ status: 200, description: 'Answer found' })

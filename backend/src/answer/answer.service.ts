@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
 import { DatabaseService } from 'src/database/database.service';
+import { threadId } from 'worker_threads';
 
 @Injectable()
 export class AnswerService {
@@ -73,5 +74,22 @@ export class AnswerService {
     return this.databaseService.answer.delete({
       where: { id },
     });
+  }
+
+  async findQuestionAnswers(id: string) {
+    const question = await this.databaseService.question.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!question)
+      throw new BadRequestException({ message: 'Question not found' });
+
+    const answers = await this.databaseService.answer.findMany({
+      where: { questionId: id },
+    });
+
+    return answers;
   }
 }
