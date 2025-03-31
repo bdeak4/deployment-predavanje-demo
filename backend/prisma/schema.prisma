@@ -25,7 +25,7 @@ model User {
 
 model Category {
   id          String @id @default(uuid())
-  name        String
+  name        String  @unique
   createdAt   DateTime @default(now())
 
   quizzes     Quiz[]   @relation("CategoryQuizzes")
@@ -33,7 +33,7 @@ model Category {
 
 model Quiz {
   id            String   @id @default(uuid())
-  title         String
+  title         String   @unique
   img           String
   createdAt     DateTime @default(now())
 

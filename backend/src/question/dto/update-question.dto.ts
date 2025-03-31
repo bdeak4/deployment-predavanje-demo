@@ -9,7 +9,7 @@ export class UpdateQuestionDto extends PartialType(CreateQuestionDto) {
     description: 'Question text',
     type: 'string',
   })
-  @IsString()
+  @IsString({ message: 'Text must be a string' })
   @IsOptional()
   text?: string;
 
@@ -18,7 +18,10 @@ export class UpdateQuestionDto extends PartialType(CreateQuestionDto) {
     description: 'Question type',
     enum: QuestionType,
   })
-  @IsEnum(QuestionType)
+  @IsEnum(QuestionType, {
+    message:
+      'Type must be one of the following: MULTIPLE_CHOICE, TRUE_FALSE, FILL_IN_THE_BLANK',
+  })
   @IsOptional()
   type?: QuestionType;
 }

@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '@prisma/client';
-import { IsEmail, IsEnum, IsNotEmpty, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -8,8 +14,9 @@ export class CreateUserDto {
     description: 'User name',
     type: 'string',
   })
-  @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(3, { message: 'Name must be at least 3 characters long' })
+  @IsString({ message: 'Name must be a string' })
+  @IsNotEmpty({ message: 'Name is required' })
   name: string;
 
   @ApiProperty({
@@ -17,7 +24,12 @@ export class CreateUserDto {
     description: 'User email',
     type: 'string',
   })
-  @IsEmail()
+  @IsEmail(
+    { require_tld: true },
+    { message: 'Email must be a valid email address' },
+  )
+  @IsString({ message: 'Email must be a string' })
+  @IsNotEmpty({ message: 'Email is required' })
   email: string;
 
   @ApiProperty({
@@ -25,8 +37,9 @@ export class CreateUserDto {
     description: 'User password',
     type: 'string',
   })
-  @IsNotEmpty()
-  @MinLength(6)
+  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  @IsString({ message: 'Password must be a string' })
+  @IsNotEmpty({ message: 'Password is required' })
   password: string;
 
   @ApiProperty({
@@ -35,6 +48,9 @@ export class CreateUserDto {
     description: 'User role',
     type: 'string',
   })
-  @IsEnum(UserRole)
+  @IsEnum(UserRole, {
+    message: 'Role must be one of the following: USER, ADMIN',
+  })
+  @IsNotEmpty({ message: 'Role is required' })
   role: UserRole;
 }

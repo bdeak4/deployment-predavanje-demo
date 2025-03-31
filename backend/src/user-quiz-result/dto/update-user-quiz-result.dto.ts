@@ -7,7 +7,10 @@ export class UpdateUserQuizResultDto {
     description: 'Score of the user in the quiz',
     type: 'number',
   })
-  @IsNumber()
-  @IsNotEmpty()
+  @IsNumber(
+    { allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 },
+    { message: 'Score must be a number' },
+  )
+  @IsNotEmpty({ message: 'Score is required' })
   score: number;
 }

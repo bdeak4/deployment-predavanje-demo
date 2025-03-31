@@ -7,17 +7,20 @@ export class CreateUserQuizResultDto {
     description: 'Score of the user in the quiz',
     type: 'number',
   })
-  @IsNumber()
-  @IsNotEmpty()
+  @IsNumber(
+    { allowNaN: false, allowInfinity: false, maxDecimalPlaces: 0 },
+    { message: 'Score must be a number' },
+  )
+  @IsNotEmpty({ message: 'Score is required' })
   score: number;
 
   @ApiProperty({ description: 'User ID', type: 'string' })
-  @IsNotEmpty()
-  @IsString()
+  @IsString({ message: 'User ID must be a string' })
+  @IsNotEmpty({ message: 'User ID is required' })
   userId: string;
 
   @ApiProperty({ description: 'Quiz ID', type: 'string' })
-  @IsNotEmpty()
-  @IsString()
+  @IsString({ message: 'Quiz ID must be a string' })
+  @IsNotEmpty({ message: 'Quiz ID is required' })
   quizId: string;
 }

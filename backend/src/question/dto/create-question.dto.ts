@@ -8,8 +8,8 @@ export class CreateQuestionDto {
     description: 'Question text',
     type: 'string',
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Text must be a string' })
+  @IsNotEmpty({ message: 'Text is required' })
   text: string;
 
   @ApiProperty({
@@ -17,11 +17,15 @@ export class CreateQuestionDto {
     description: 'Question type',
     enum: QuestionType,
   })
-  @IsEnum(QuestionType)
+  @IsEnum(QuestionType, {
+    message:
+      'Type must be one of the following: MULTIPLE_CHOICE, TRUE_FALSE, FILL_IN_THE_BLANK',
+  })
+  @IsNotEmpty({ message: 'Type is required' })
   type: QuestionType;
 
   @ApiProperty({ description: 'Quiz ID', type: 'string' })
-  @IsNotEmpty()
-  @IsString()
+  @IsString({ message: 'Quiz ID must be a string' })
+  @IsNotEmpty({ message: 'Quiz ID is required' })
   quizId: string;
 }

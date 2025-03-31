@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateQuizDto } from './create-quiz.dto';
 
@@ -8,7 +8,7 @@ export class UpdateQuizDto extends PartialType(CreateQuizDto) {
     description: 'Quiz title',
     type: 'string',
   })
-  @IsString()
+  @IsString({ message: 'Title must be a string' })
   @IsOptional()
   title?: string;
 
@@ -18,12 +18,12 @@ export class UpdateQuizDto extends PartialType(CreateQuizDto) {
     description: 'Quiz image URL',
     type: 'string',
   })
-  @IsString()
+  @IsString({ message: 'Image URL must be a string' })
   @IsOptional()
   img?: string;
 
   @ApiProperty({ description: 'Quiz category ID', type: 'string' })
-  @IsString()
+  @IsString({ message: 'Category ID must be a string' })
   @IsOptional()
   categoryId?: string;
 }

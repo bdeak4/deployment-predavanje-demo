@@ -7,8 +7,8 @@ export class CreateAnswerDto {
     description: 'Answer text',
     type: 'string',
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Text must be a string' })
+  @IsNotEmpty({ message: 'Text is required' })
   text: string;
 
   @ApiProperty({
@@ -16,11 +16,12 @@ export class CreateAnswerDto {
     description: 'Indicates if the answer is correct or not',
     type: 'boolean',
   })
-  @IsBoolean()
+  @IsBoolean({ message: 'isCorrect must be a boolean' })
+  @IsNotEmpty({ message: 'isCorrect is required' })
   isCorrect: boolean;
 
   @ApiProperty({ description: 'Question ID', type: 'string' })
-  @IsNotEmpty()
-  @IsString()
+  @IsString({ message: 'Question ID must be a string' })
+  @IsNotEmpty({ message: 'Question ID is required' })
   questionId: string;
 }

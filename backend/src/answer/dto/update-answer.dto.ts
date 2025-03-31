@@ -1,6 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { CreateAnswerDto } from './create-answer.dto';
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpdateAnswerDto extends PartialType(CreateAnswerDto) {
   @ApiProperty({
@@ -8,7 +8,7 @@ export class UpdateAnswerDto extends PartialType(CreateAnswerDto) {
     description: 'Answer text',
     type: 'string',
   })
-  @IsString()
+  @IsString({ message: 'Text must be a string' })
   @IsOptional()
   text?: string;
 
@@ -17,7 +17,7 @@ export class UpdateAnswerDto extends PartialType(CreateAnswerDto) {
     description: 'Indicates if the answer is correct or not',
     type: 'boolean',
   })
-  @IsBoolean()
+  @IsBoolean({ message: 'isCorrect must be a boolean' })
   @IsOptional()
   isCorrect?: boolean;
 }

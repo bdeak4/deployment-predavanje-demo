@@ -7,8 +7,8 @@ export class CreateQuizDto {
     description: 'Quiz title',
     type: 'string',
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Title must be a string' })
+  @IsNotEmpty({ message: 'Title is required' })
   title: string;
 
   @ApiProperty({
@@ -17,12 +17,12 @@ export class CreateQuizDto {
     description: 'Quiz image URL',
     type: 'string',
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Image URL must be a string' })
+  @IsNotEmpty({ message: 'Image URL is required' })
   img: string;
 
   @ApiProperty({ description: 'Quiz category ID', type: 'string' })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Category ID must be a string' })
+  @IsNotEmpty({ message: 'Category ID is required' })
   categoryId: string;
 }

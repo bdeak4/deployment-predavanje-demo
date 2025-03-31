@@ -7,7 +7,7 @@ export class CreateCategoryDto {
     description: 'Quiz category',
     type: 'string',
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'Name must be a string' })
+  @IsNotEmpty({ message: 'Name is required' })
   name: string;
 }
