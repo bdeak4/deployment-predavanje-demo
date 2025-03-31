@@ -17,12 +17,22 @@ export class QuestionService {
   }
 
   async findOne(id: string) {
-    return this.databaseService.question.findUnique({
+    const question = await this.databaseService.question.findUnique({
       where: { id },
     });
+
+    if (!question) throw new Error('Question not found');
+
+    return question;
   }
 
   async update(id: string, updateQuestionDto: UpdateQuestionDto) {
+    const question = await this.databaseService.question.findUnique({
+      where: { id },
+    });
+
+    if (!question) throw new Error('Question not found');
+
     return this.databaseService.question.update({
       where: { id },
       data: updateQuestionDto,
@@ -30,6 +40,12 @@ export class QuestionService {
   }
 
   async remove(id: string) {
+    const question = await this.databaseService.question.findUnique({
+      where: { id },
+    });
+
+    if (!question) throw new Error('Question not found');
+
     return this.databaseService.question.delete({
       where: { id },
     });
