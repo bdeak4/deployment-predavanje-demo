@@ -21,6 +21,17 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Internship-Quiz API')
     .setDescription('Opis svih API endpoints')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Unesite JWT token',
+        in: 'header',
+      },
+      'JWT-auth', // Ime security schemea (koristite ga u @ApiBearerAuth())
+    )
     .setVersion('1.0')
     .build();
 

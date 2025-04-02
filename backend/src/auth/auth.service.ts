@@ -70,6 +70,28 @@ export class AuthService {
     };
   }
 
+  async refreshAccessToken(refreshToken: string) {
+    try {
+      const payload = this.jwtService.verify(refreshToken);
+
+      const user = await this.databaseService.user.findUnique({
+        where: { id: payload.sub },
+      });
+
+      if (!user) throw new UnauthorizedException('Invalid refresh token');
+
+      const newAccessToken = this.generateToken(user.id, user.role);
+      const newRefreshToken = this.generateRefreshToken(user.id);
+
+      return {
+        access_token: newAccessToken,
+        new_refresh_token: newRefreshToken,
+      };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired refresh token');
+    }
+  }
+
   private generateToken(userId: string, role: string) {
     const payload = { sub: userId, role };
     return this.jwtService.sign(payload, { expiresIn: '15m' });

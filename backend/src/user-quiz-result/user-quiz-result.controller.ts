@@ -6,13 +6,25 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UserQuizResultService } from './user-quiz-result.service';
 import { CreateUserQuizResultDto } from './dto/create-user-quiz-result.dto';
 import { UpdateUserQuizResultDto } from './dto/update-user-quiz-result.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/auth/roles.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 @ApiTags('User Quiz Result')
+@ApiBearerAuth('JWT-auth')
+@UseGuards(JwtAuthGuard)
 @Controller('result')
 export class UserQuizResultController {
   constructor(private readonly userQuizResultService: UserQuizResultService) {}
@@ -37,6 +49,8 @@ export class UserQuizResultController {
   }
 
   @Get('leaderboard')
+  @UseGuards(RolesGuard)
+  @Roles('ADMIN')
   @ApiOperation({ summary: 'Get user quiz leaderboard' })
   @ApiResponse({
     status: 200,
@@ -47,6 +61,8 @@ export class UserQuizResultController {
   }
 
   @Get('leaderboard/:id')
+  @UseGuards(RolesGuard)
+  @Roles('USER')
   @ApiOperation({ summary: 'Get user rating' })
   @ApiResponse({
     status: 200,
