@@ -16,7 +16,7 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
     );
     if (!requiredRoles) {
-      return true; // Ako nema postavljenih uloga, svi mogu pristupiti
+      return true;
     }
 
     const request = context.switchToHttp().getRequest();

@@ -28,7 +28,9 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
 
     const token = this.generateToken(user.id, user.role);
-    return { access_token: token };
+    const refreshToken = this.generateRefreshToken(user.id);
+
+    return { access_token: token, refresh_token: refreshToken };
   }
 
   async register(name: string, email: string, password: string) {
@@ -70,6 +72,11 @@ export class AuthService {
 
   private generateToken(userId: string, role: string) {
     const payload = { sub: userId, role };
-    return this.jwtService.sign(payload);
+    return this.jwtService.sign(payload, { expiresIn: '15m' });
+  }
+
+  private generateRefreshToken(userId: string) {
+    const payload = { sub: userId };
+    return this.jwtService.sign(payload, { expiresIn: '7d' });
   }
 }
