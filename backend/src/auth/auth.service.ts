@@ -28,9 +28,8 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
 
     const token = this.generateToken(user.id, user.role);
-    const refreshToken = this.generateRefreshToken(user.id);
 
-    return { access_token: token, refresh_token: refreshToken };
+    return { access_token: token };
   }
 
   async register(name: string, email: string, password: string) {
@@ -70,35 +69,8 @@ export class AuthService {
     };
   }
 
-  async refreshAccessToken(refreshToken: string) {
-    try {
-      const payload = this.jwtService.verify(refreshToken);
-
-      const user = await this.databaseService.user.findUnique({
-        where: { id: payload.sub },
-      });
-
-      if (!user) throw new UnauthorizedException('Invalid refresh token');
-
-      const newAccessToken = this.generateToken(user.id, user.role);
-      const newRefreshToken = this.generateRefreshToken(user.id);
-
-      return {
-        access_token: newAccessToken,
-        new_refresh_token: newRefreshToken,
-      };
-    } catch (error) {
-      throw new UnauthorizedException('Invalid or expired refresh token');
-    }
-  }
-
   private generateToken(userId: string, role: string) {
     const payload = { sub: userId, role };
-    return this.jwtService.sign(payload, { expiresIn: '15m' });
-  }
-
-  private generateRefreshToken(userId: string) {
-    const payload = { sub: userId };
-    return this.jwtService.sign(payload, { expiresIn: '7d' });
+    return this.jwtService.sign(payload, { expiresIn: '15s' });
   }
 }

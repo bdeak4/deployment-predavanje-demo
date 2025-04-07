@@ -1,0 +1,39 @@
+.registerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  background-color: rgb(70, 25, 66, 0.8);
+  overflow: hidden;
+  font-family: var(--nunito-font-bold);
+}
+
+.navLinks > a {
+  padding: 5px 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.navLinks > a:hover {
+  text-decoration: underline;
+}
+
+.active {
+  background-color: #461942;
+  border-radius: 50px;
+}
+
+.active:hover {
+  text-decoration: none !important;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

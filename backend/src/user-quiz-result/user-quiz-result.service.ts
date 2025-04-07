@@ -101,6 +101,6 @@ export class UserQuizResultService {
     if (userRatingIndex === -1)
       throw new BadRequestException('User rating not found');
 
-    return userRatingIndex + 1;
+    return { rating: userRatingIndex + 1 };
   }
 }
