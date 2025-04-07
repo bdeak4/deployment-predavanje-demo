@@ -43,7 +43,12 @@ export function Navbar() {
 
   return (
     <nav>
-      <div className={c.logo}>
+      <div
+        className={c.logo}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
         <img src={QuizLogo} alt="Quiz logo" />
         <h2>uizizz</h2>
       </div>

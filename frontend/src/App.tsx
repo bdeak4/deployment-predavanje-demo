@@ -8,6 +8,7 @@ import { QuizPage } from "./pages/QuizPage";
 import { PageNotFound } from "./pages/404Page";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components";
+import { HomePage } from "./pages/HomePage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               </ProtectedRoute>
             }
           >
+            <Route path={routes.HOME} element={<HomePage />}></Route>
             <Route path={routes.QUIZZES} element={<QuizzesPage />} />
             <Route path={routes.QUIZ} element={<QuizPage />} />
           </Route>
