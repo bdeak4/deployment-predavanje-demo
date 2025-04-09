@@ -2,16 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 type AuthContextType = {
   accessToken: string | null;
-  setAccessToken: (token: string | null) => void;
-};
-
-const isTokenExpired = (token: string) => {
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    return payload.exp * 1000 < Date.now();
-  } catch (error) {
-    return true;
-  }
+  setAccessToken: (token: string) => void;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -19,22 +10,14 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [accessToken, setAccessToken] = useState<string | null>(() => {
-    const storedToken = localStorage.getItem("access_token");
-    return storedToken && !isTokenExpired(storedToken) ? storedToken : null;
-  });
+  const [accessToken, setAccessToken] = useState<string>(
+    localStorage.getItem("access_token") || ""
+  );
 
   useEffect(() => {
-    if (accessToken) {
-      if (isTokenExpired(accessToken)) {
-        setAccessToken(null);
-      } else {
-        localStorage.setItem("access_token", accessToken);
-      }
-    } else {
-      localStorage.removeItem("access_token");
-    }
-  }, [accessToken]);
+    const token = localStorage.getItem("accessToken");
+    if (token) setAccessToken(token);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken }}>

@@ -2,15 +2,15 @@ import c from "./Navbar.module.css";
 import QuizLogo from "../../assets/images/QuizLogo.png";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../context";
-import { fetchQuizCategories } from "../../api";
-import { useEffect, useRef } from "react";
+import { useQuizCategoriesQuery } from "../../api";
+import { useRef } from "react";
 
 type CategoriesType = { id: string; name: string; createdAt: string };
 
 export function Navbar() {
-  const { setAccessToken, accessToken } = useAuthContext();
+  const { setAccessToken } = useAuthContext();
   const navigate = useNavigate();
-  const quizCategories = fetchQuizCategories(accessToken!);
+  const { data } = useQuizCategoriesQuery();
 
   const categoryRef = useRef<HTMLSelectElement | null>(null);
   const titleRef = useRef<HTMLInputElement | null>(null);
@@ -28,18 +28,9 @@ export function Navbar() {
 
   const handleLogout = async () => {
     localStorage.removeItem("access_token");
-    setAccessToken(null);
+    setAccessToken("");
     navigate("/login", { replace: true });
   };
-
-  useEffect(() => {
-    const getCategories = async () => {
-      if (!accessToken) return;
-      await quizCategories.mutateAsync();
-    };
-
-    getCategories();
-  }, [accessToken]);
 
   return (
     <nav>
@@ -61,8 +52,8 @@ export function Navbar() {
             ref={categoryRef}
           >
             <option value="">All</option>
-            {Array.isArray(quizCategories.data) &&
-              quizCategories.data.map((qc: CategoriesType) => (
+            {Array.isArray(data) &&
+              data.map((qc: CategoriesType) => (
                 <option key={qc.id} value={qc.id}>
                   {qc.name}
                 </option>

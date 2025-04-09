@@ -22,6 +22,7 @@ export const useLogin = () => {
     },
     onSuccess: ({ access_token }) => {
       setAccessToken(access_token);
+      localStorage.setItem("access_token", access_token);
     },
     onError: (error) => {
       console.error("Login failed", error);

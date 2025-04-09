@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { fetchQuizes } from "../../api";
-import { useAuthContext } from "../../context";
+import { useQuizzesQuery } from "../../api";
 import { useSearchParams } from "react-router";
 
 type QuizzesType = {
@@ -12,30 +10,19 @@ type QuizzesType = {
 };
 
 export function QuizzesPage() {
-  const { accessToken } = useAuthContext();
   const [searchParams] = useSearchParams();
 
   const title = searchParams.get("title") || "";
   const categoryId = searchParams.get("category") || "";
 
-  const quizzes = fetchQuizes(accessToken!, title, categoryId);
-
-  useEffect(() => {
-    const getQuizzes = async () => {
-      await quizzes.mutateAsync();
-    };
-
-    getQuizzes();
-  }, [title, categoryId]);
-
-  console.log(quizzes.data);
+  const { data } = useQuizzesQuery(title, categoryId);
 
   return (
     <section>
       <h1>Quizzes</h1>
       <div>
-        {Array.isArray(quizzes.data) &&
-          quizzes.data.map((q: QuizzesType) => <div key={q.id}>{q.title}</div>)}
+        {Array.isArray(data) &&
+          data.map((q: QuizzesType) => <div key={q.id}>{q.title}</div>)}
       </div>
     </section>
   );
