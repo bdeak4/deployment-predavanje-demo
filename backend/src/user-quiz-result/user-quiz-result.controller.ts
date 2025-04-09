@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UserQuizResultService } from './user-quiz-result.service';
 import { CreateUserQuizResultDto } from './dto/create-user-quiz-result.dto';
@@ -34,8 +35,12 @@ export class UserQuizResultController {
   @ApiResponse({ status: 201, description: 'Quiz result successfully created' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiBody({ type: CreateUserQuizResultDto })
-  create(@Body() createUserQuizResultDto: CreateUserQuizResultDto) {
-    return this.userQuizResultService.create(createUserQuizResultDto);
+  create(
+    @Body() createUserQuizResultDto: CreateUserQuizResultDto,
+    @Req() req: any,
+  ) {
+    const userId = req.user.userId;
+    return this.userQuizResultService.create(userId, createUserQuizResultDto);
   }
 
   @Get()

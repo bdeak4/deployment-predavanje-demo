@@ -1,16 +1,28 @@
 import { useState } from "react";
 import { useQuizQuestionsQuery } from "../../api/useQuizQuestionsQuery";
 import QuestionAnswers from "./QuestionAnswers";
+import { useSubmitQuizScore } from "../../api";
 
 export default function QuizGameplay({ quizId }: { quizId: string }) {
   const [score, setScore] = useState<number>(0);
   const [questionCount, setQuestionCount] = useState<number>(1);
   const { data, isFetching, isError, error } = useQuizQuestionsQuery(quizId);
+  const { mutateAsync } = useSubmitQuizScore();
+
   let currentQuestion = null;
 
   if (data && data.length) {
     currentQuestion = data[questionCount - 1];
   }
+
+  const handleSubmitQuizResult = () => {
+    if (questionCount === 5) {
+      mutateAsync({ score, quizId });
+    }
+    setQuestionCount((prev) => prev + 1);
+  };
+
+  console.log(questionCount);
 
   if (questionCount === 6) {
     return (
@@ -18,6 +30,7 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
         <p>
           Your score was: {score}/{questionCount - 1}
         </p>
+        <button>Try again</button>
       </div>
     );
   }
@@ -34,7 +47,7 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
           <QuestionAnswers
             questionId={currentQuestion.id}
             questionType={currentQuestion.type}
-            setQuestionCount={setQuestionCount}
+            handleSubmitQuizResult={handleSubmitQuizResult}
             setScore={setScore}
           />
         </div>

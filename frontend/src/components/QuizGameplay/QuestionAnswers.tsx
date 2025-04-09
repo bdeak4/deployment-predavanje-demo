@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useQuestionAnswers } from "../../api/useQuestionAnswers";
+import { useSubmitQuizScore } from "../../api";
 
 type QuestionAnswers = {
   id: string;
@@ -11,29 +12,28 @@ type QuestionAnswers = {
 type QuestionAnswerProps = {
   questionId: string;
   questionType: string;
-  setQuestionCount: React.Dispatch<React.SetStateAction<number>>;
   setScore: React.Dispatch<React.SetStateAction<number>>;
+  handleSubmitQuizResult: () => void;
 };
 
 export default function QuestionAnswers({
   questionId,
   questionType,
-  setQuestionCount,
   setScore,
+  handleSubmitQuizResult,
 }: QuestionAnswerProps) {
   const typedAnswerRef = useRef<HTMLInputElement | null>(null);
   const { data, isFetching, isError, error } = useQuestionAnswers(questionId);
 
   const handleMultipleChoiceClick = (isCorrect: boolean) => {
-    setQuestionCount((prev) => prev + 1);
-
+    handleSubmitQuizResult();
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
   };
 
   const handleAnswerSubmit = () => {
-    setQuestionCount((prev) => prev + 1);
+    handleSubmitQuizResult();
     if (
       typedAnswerRef.current?.value.toLowerCase() === data[0].text.toLowerCase()
     ) {

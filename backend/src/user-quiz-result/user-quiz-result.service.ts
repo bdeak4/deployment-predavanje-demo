@@ -6,9 +6,29 @@ import { UpdateUserQuizResultDto } from './dto/update-user-quiz-result.dto';
 @Injectable()
 export class UserQuizResultService {
   constructor(private readonly databaseService: DatabaseService) {}
-  async create(createUserQuizResultDto: CreateUserQuizResultDto) {
+  async create(
+    userId: string,
+    createUserQuizResultDto: CreateUserQuizResultDto,
+  ) {
+    const userQuizResult = await this.databaseService.userQuizResult.findFirst({
+      where: {
+        userId,
+        quizId: createUserQuizResultDto.quizId,
+      },
+    });
+
+    if (userQuizResult) {
+      if (userQuizResult.score < createUserQuizResultDto.score) {
+        return this.databaseService.userQuizResult.update({
+          where: { id: userQuizResult.id },
+          data: { score: createUserQuizResultDto.score },
+        });
+      }
+      return { message: 'Score not higher, not updated' };
+    }
+
     return this.databaseService.userQuizResult.create({
-      data: createUserQuizResultDto,
+      data: { userId, ...createUserQuizResultDto },
     });
   }
 

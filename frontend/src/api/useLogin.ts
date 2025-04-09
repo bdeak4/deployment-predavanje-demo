@@ -22,7 +22,7 @@ export const useLogin = () => {
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.message || "Došlo je do greške");
+        throw new Error(errorData.message || "Error occurred");
       }
 
       return res.json();
