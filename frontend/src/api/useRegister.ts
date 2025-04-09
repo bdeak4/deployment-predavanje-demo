@@ -1,19 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
-import { useAuthContext } from "../context/useAuthContext";
 import { useNavigate } from "react-router";
 
-type LoginData = {
+interface User {
+  name: string;
   email: string;
   password: string;
-};
+}
 
-export const useLogin = () => {
-  const { setAccessToken } = useAuthContext();
+export const useRegister = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (data: LoginData) => {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
+    mutationFn: async (data: User) => {
+      const res = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -27,10 +26,9 @@ export const useLogin = () => {
 
       return res.json();
     },
-    onSuccess: ({ access_token }) => {
-      setAccessToken(access_token);
-      localStorage.setItem("access_token", access_token);
-      navigate("/");
+    onSuccess: (data) => {
+      console.log("User registered successfully:", data);
+      navigate("/login");
     },
   });
 };

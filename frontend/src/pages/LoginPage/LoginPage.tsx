@@ -1,27 +1,26 @@
-import { useState } from "react";
+import { useRef } from "react";
 import c from "./LoginPage.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useLogin } from "../../api";
-import { useAuthContext } from "../../context/useAuthContext";
 
 export function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { accessToken } = useAuthContext();
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  console.log("accessToken", accessToken);
-
-  const login = useLogin();
+  const { mutateAsync, isPending, isError, error } = useLogin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      await login.mutateAsync({ email, password });
-      navigate("/");
-    } catch (err: any) {
-      alert(err.message);
+    if (emailRef.current?.value && passwordRef.current?.value) {
+      try {
+        await mutateAsync({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        });
+      } catch (err: any) {
+        console.log(err.message);
+      }
     }
   };
 
@@ -45,27 +44,22 @@ export function LoginPage() {
       <form className={c.loginForm} onSubmit={handleSubmit}>
         <label>
           Email:{" "}
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <input type="email" placeholder="Email" ref={emailRef} required />
         </label>
         <label>
           Password:{" "}
           <input
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            ref={passwordRef}
+            minLength={6}
             required
           />
         </label>
-        <button type="submit" disabled={login.isPending}>
+        <button type="submit" disabled={isPending}>
           Submit
         </button>
+        {isError && <p>{error.message}</p>}
       </form>
     </section>
   );
