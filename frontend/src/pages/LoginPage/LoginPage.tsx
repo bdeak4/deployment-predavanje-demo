@@ -9,7 +9,7 @@ export function LoginPage() {
 
   const { mutateAsync, isPending, isError, error } = useLogin();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (emailRef.current?.value && passwordRef.current?.value) {

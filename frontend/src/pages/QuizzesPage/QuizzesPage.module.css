@@ -1,0 +1,47 @@
+.quizzesSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.quizzesSection > h1 {
+  text-align: center;
+}
+
+.quizzesSection > p {
+  text-align: center;
+}
+
+.quizzesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.quizBox {
+  background-color: rgb(232, 232, 232);
+  border-radius: 20px;
+  overflow: hidden;
+  width: 300px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: ease 0.2s;
+}
+
+.quizBox:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 5px black;
+}
+
+.quizBox > h3 {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.quizBox > img {
+  width: 100%;
+  height: 80%;
+}
