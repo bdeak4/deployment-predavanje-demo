@@ -1,19 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useFetchWithAuth } from "./useFetchWithAuth";
+import axiosInstance from "./base";
 
 export const useQuizQuery = (quizId: string) => {
-  const fetchWithAuth = useFetchWithAuth();
-
   return useQuery({
     queryKey: ["quiz", quizId],
     queryFn: async () => {
-      const res = await fetchWithAuth(`/quiz/${quizId}`);
-
-      if (!res.ok) {
-        throw new Error("Failed to fetch quizzes");
+      try {
+        return await axiosInstance.get(`/quiz/${quizId}`);
+      } catch (error) {
+        throw error;
       }
-
-      return res.json();
     },
   });
 };

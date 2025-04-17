@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useFetchWithAuth } from "./useFetchWithAuth";
+import axiosInstance from "./base";
 
 interface UserQuizResult {
   score: number;
@@ -7,25 +7,16 @@ interface UserQuizResult {
 }
 
 export const useSubmitQuizScore = () => {
-  const fetchWithAuth = useFetchWithAuth();
-
   return useMutation({
     mutationFn: async (data: UserQuizResult) => {
-      const res = await fetchWithAuth("/result", {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Error occurred");
+      try {
+        return await axiosInstance.post("/result", data);
+      } catch (error) {
+        throw error;
       }
-
-      return res.json();
     },
     onSuccess: (data) => {
-      console.log("Quiz result submited successfully:", data);
+      console.log("Quiz result submitted successfully:", data);
     },
   });
 };

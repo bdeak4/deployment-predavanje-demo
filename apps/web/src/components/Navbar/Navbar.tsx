@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useAuthContext } from "../../context";
 import { useQuizCategoriesQuery } from "../../api";
 import { useRef } from "react";
+import SearchIcon from "../../assets/images/icons8-search.svg";
 
 type CategoriesType = { id: string; name: string; createdAt: string };
 
@@ -60,7 +61,7 @@ export function Navbar() {
               ))}
           </select>
           <input type="text" placeholder="Quiz search..." ref={titleRef} />
-          <button onClick={handleSearchQuizzes}>Search</button>
+          <img src={SearchIcon} onClick={handleSearchQuizzes} />
         </div>
 
         <button onClick={handleLogout}>Logout</button>

@@ -3,8 +3,13 @@ nav {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  background-color: rgb(250, 235, 215);
+  background-color: rgba(70, 25, 66);
   padding: 0 10px;
+  box-shadow: 0 0 5px black;
+  position: fixed;
+  width: calc(100% - 20px);
+  z-index: 100;
+  top: 0;
 }
 
 nav > .logo {
@@ -20,12 +25,13 @@ nav > .logo {
 .logo > img {
   width: 60px;
   height: 60px;
+  filter: drop-shadow(0 0 0.8px white);
 }
 
 .logo > h2 {
   padding: 0;
   margin: 0;
-  color: #461942;
+  color: white;
   font-family: var(--nunito-font-extra-bold);
   font-weight: 1000;
 }
@@ -46,8 +52,38 @@ nav > .logo {
 .searchQuiz {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   padding: 0 20px;
-  border-right: 1px solid rgb(224, 210, 192);
+  border-right: 1px solid rgb(122, 66, 117);
   height: 50px;
+}
+
+.searchQuiz > select {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgb(96, 46, 92);
+  color: white;
+  border: 1px solid white;
+}
+
+.searchQuiz > input {
+  padding: 7px;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+.searchQuiz > img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: rgb(96, 46, 92);
+  padding: 5px;
+  transition: ease 0.2ms;
+}
+
+.searchQuiz > img:hover {
+  background-color: rgb(170, 129, 157);
+  transform: scale(1.05);
 }
