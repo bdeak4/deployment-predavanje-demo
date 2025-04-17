@@ -141,3 +141,6 @@ dist
 .env.development
 .env.production
 .env.test
+
+# ignore turbo
+.turbo

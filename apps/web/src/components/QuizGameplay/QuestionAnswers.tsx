@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useQuestionAnswers } from "../../api/useQuestionAnswers";
-import { useSubmitQuizScore } from "../../api";
 
 type QuestionAnswers = {
   id: string;
@@ -23,7 +22,7 @@ export default function QuestionAnswers({
   handleSubmitQuizResult,
 }: QuestionAnswerProps) {
   const typedAnswerRef = useRef<HTMLInputElement | null>(null);
-  const { data, isFetching, isError, error } = useQuestionAnswers(questionId);
+  const { data } = useQuestionAnswers(questionId);
 
   const handleMultipleChoiceClick = (isCorrect: boolean) => {
     handleSubmitQuizResult();

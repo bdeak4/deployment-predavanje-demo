@@ -6,7 +6,7 @@ import { useSubmitQuizScore } from "../../api";
 export default function QuizGameplay({ quizId }: { quizId: string }) {
   const [score, setScore] = useState<number>(0);
   const [questionCount, setQuestionCount] = useState<number>(1);
-  const { data, isFetching, isError, error } = useQuizQuestionsQuery(quizId);
+  const { data } = useQuizQuestionsQuery(quizId);
   const { mutateAsync } = useSubmitQuizScore();
 
   let currentQuestion = null;
@@ -21,8 +21,6 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
     }
     setQuestionCount((prev) => prev + 1);
   };
-
-  console.log(questionCount);
 
   if (questionCount === 6) {
     return (
