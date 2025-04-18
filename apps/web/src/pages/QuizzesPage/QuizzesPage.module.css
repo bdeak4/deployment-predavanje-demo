@@ -6,6 +6,7 @@
 
 .quizzesSection > h1 {
   text-align: center;
+  font-size: 34px;
 }
 
 .quizzesSection > p {
@@ -29,11 +30,12 @@
   flex-direction: column;
   cursor: pointer;
   transition: ease 0.2s;
+  background-color: rgb(227, 210, 221);
 }
 
 .quizBox:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 5px black;
+  box-shadow: 0 0 5px rgba(70, 25, 66);
 }
 
 .quizBox > h3 {
