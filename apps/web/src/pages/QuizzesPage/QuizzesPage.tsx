@@ -1,6 +1,7 @@
 import { useQuizzesQuery } from "../../api";
 import { useNavigate, useSearchParams } from "react-router";
 import c from "./QuizzesPage.module.css";
+import imagePlaceholder from "../../assets/images/imagePlaceholder.png";
 
 type QuizzesType = {
   id: string;
@@ -40,7 +41,11 @@ export function QuizzesPage() {
                 className={c.quizBox}
                 onClick={() => handleQuizClick(q.id)}
               >
-                <img src={q.img} alt={q.title} />
+                <img
+                  src={q.img}
+                  onError={(e) => (e.currentTarget.src = imagePlaceholder)}
+                  alt={q.title}
+                />
                 <h3>{q.title}</h3>
               </div>
             ))}

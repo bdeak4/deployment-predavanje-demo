@@ -6,9 +6,10 @@ export const useQuizzesQuery = (title: string, categoryId: string) => {
     queryKey: ["quizzes", title, categoryId],
     queryFn: async () => {
       try {
-        return await axiosInstance.get(
+        const response = await axiosInstance.get(
           `/quiz?title=${title}&categoryId=${categoryId}`
         );
+        return response;
       } catch (error) {
         throw error;
       }

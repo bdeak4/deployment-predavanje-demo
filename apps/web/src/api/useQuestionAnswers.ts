@@ -6,7 +6,10 @@ export const useQuestionAnswers = (questionId: string) => {
     queryKey: ["quiz", questionId],
     queryFn: async () => {
       try {
-        return await axiosInstance.get(`/answer/question/${questionId}`);
+        const response = await axiosInstance.get(
+          `/answer/question/${questionId}`
+        );
+        return response;
       } catch (error) {
         throw error;
       }

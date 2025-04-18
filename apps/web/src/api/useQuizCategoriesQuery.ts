@@ -6,7 +6,8 @@ export const useQuizCategoriesQuery = () => {
     queryKey: ["categories"],
     queryFn: async () => {
       try {
-        return await axiosInstance.get("/category");
+        const response = await axiosInstance.get("/category");
+        return response;
       } catch (error) {
         throw error;
       }
