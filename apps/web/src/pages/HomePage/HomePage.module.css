@@ -1,0 +1,24 @@
+.homePageSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/images/3188668.jpg") center center no-repeat;
+  background-size: cover;
+  height: calc(100vh - 200px);
+  color: white;
+}
+
+.homePageSection > h1 {
+  font-size: 50px;
+  text-align: center;
+  margin: 0;
+  max-width: 800px;
+}
+
+.homePageSection > p {
+  font-size: 22px;
+  text-align: center;
+}

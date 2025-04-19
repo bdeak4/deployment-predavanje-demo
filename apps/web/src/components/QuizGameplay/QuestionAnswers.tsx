@@ -34,6 +34,7 @@ export default function QuestionAnswers({
   const handleAnswerSubmit = () => {
     handleSubmitQuizResult();
     if (
+      data &&
       typedAnswerRef.current?.value.toLowerCase() === data[0].text.toLowerCase()
     ) {
       setScore((prev) => prev + 1);

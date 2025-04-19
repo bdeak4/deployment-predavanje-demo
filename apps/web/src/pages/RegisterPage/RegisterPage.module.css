@@ -88,3 +88,8 @@
   background-color: rgb(122, 66, 117);
   color: white;
 }
+
+.registerForm > p {
+  color: rgb(255, 55, 55);
+  text-align: center;
+}

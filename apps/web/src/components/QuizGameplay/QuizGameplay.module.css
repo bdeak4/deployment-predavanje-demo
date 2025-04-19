@@ -1,0 +1,8 @@
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  font-size: 24px;
+}

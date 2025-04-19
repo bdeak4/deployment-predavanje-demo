@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuizQuestionsQuery } from "../../api/useQuizQuestionsQuery";
 import QuestionAnswers from "./QuestionAnswers";
 import { useSubmitQuizScore } from "../../api";
+import c from "./QuizGameplay.module.css";
 
 export default function QuizGameplay({ quizId }: { quizId: string }) {
   const [score, setScore] = useState<number>(0);
@@ -36,12 +37,12 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
   return (
     <>
       {currentQuestion ? (
-        <div>
+        <div className={c.questionContainer}>
           <p>Score: {score}</p>
           <p>
-            Question: {questionCount}/{data.length}
+            Question: {questionCount}/{data && data.length}
           </p>
-          <p>{currentQuestion.text}</p>
+          <h3 className={c.question}>{currentQuestion.text}</h3>
           <QuestionAnswers
             questionId={currentQuestion.id}
             questionType={currentQuestion.type}

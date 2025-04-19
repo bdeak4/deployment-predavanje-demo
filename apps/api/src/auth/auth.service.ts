@@ -27,7 +27,7 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Invalid credentials');
 
-    const token = this.generateToken(user.id, user.role);
+    const token = this.generateToken(user.id, user.role, user.name);
 
     return { access_token: token };
   }
@@ -69,8 +69,8 @@ export class AuthService {
     };
   }
 
-  private generateToken(userId: string, role: string) {
-    const payload = { sub: userId, role };
+  private generateToken(userId: string, role: string, name: string) {
+    const payload = { sub: userId, role, name };
     return this.jwtService.sign(payload, { expiresIn: '1h' });
   }
 }

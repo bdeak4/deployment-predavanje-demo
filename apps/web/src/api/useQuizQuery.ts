@@ -10,12 +10,12 @@ export type QuizType = {
 };
 
 export const useQuizQuery = (quizId: string) => {
-  return useQuery({
+  return useQuery<QuizType>({
     queryKey: ["quiz", quizId],
     queryFn: async () => {
       try {
         const response = await axiosInstance.get(`/quiz/${quizId}`);
-        return response;
+        return response as unknown as QuizType;
       } catch (error) {
         throw error;
       }
