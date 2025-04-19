@@ -23,13 +23,18 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
     setQuestionCount((prev) => prev + 1);
   };
 
+  const handleTryAgain = () => {
+    setQuestionCount(1);
+    setScore(0);
+  };
+
   if (questionCount === 6) {
     return (
-      <div>
-        <p>
+      <div className={c.finalScore}>
+        <h3>
           Your score was: {score}/{questionCount - 1}
-        </p>
-        <button>Try again</button>
+        </h3>
+        <button onClick={handleTryAgain}>Try again</button>
       </div>
     );
   }
@@ -38,10 +43,13 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
     <>
       {currentQuestion ? (
         <div className={c.questionContainer}>
-          <p>Score: {score}</p>
-          <p>
-            Question: {questionCount}/{data && data.length}
-          </p>
+          <div className={c.statsContainer}>
+            <p>Score: {score}</p>
+            <p>
+              Question: {questionCount}/{data && data.length}
+            </p>
+          </div>
+
           <h3 className={c.question}>{currentQuestion.text}</h3>
           <QuestionAnswers
             questionId={currentQuestion.id}

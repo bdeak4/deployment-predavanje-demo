@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useQuestionAnswers } from "../../api/useQuestionAnswers";
+import c from "./QuestionAnswers.module.css";
 
 type QuestionAnswers = {
   id: string;
@@ -43,7 +44,7 @@ export default function QuestionAnswers({
 
   if (questionType === "MULTIPLE_CHOICE" || questionType === "TRUE_FALSE") {
     return (
-      <div>
+      <div className={c.multipleChoiceContainer}>
         {data &&
           data.map((a: QuestionAnswers) => (
             <button
@@ -57,7 +58,7 @@ export default function QuestionAnswers({
     );
   } else if (questionType === "FILL_IN_THE_BLANK") {
     return (
-      <div>
+      <div className={c.fillInTheBlankContainer}>
         <input type="text" ref={typedAnswerRef} />
         <button onClick={handleAnswerSubmit}>Submit</button>
       </div>

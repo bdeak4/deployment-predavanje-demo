@@ -13,7 +13,7 @@ export const HomePage = () => {
 
   return (
     <section className={c.homePageSection}>
-      <h1>Welcome {userName} to the best quiz in the world!</h1>
+      <h1>Welcome, {userName}! Get ready for the best quiz in the world!</h1>
       <p>
         From curious minds to trivia pros — everyone’s welcome! <br />
         Start playing and see how far you can go.
