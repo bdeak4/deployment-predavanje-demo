@@ -1,9 +1,11 @@
 .sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 80px;
   right: 0px;
   width: 250px;
-  height: 100vh;
+  height: calc(100vh - 80px - 30px - 30px);
   background-color: rgb(96, 46, 92);
   color: white;
   padding: 30px 20px;
@@ -12,15 +14,72 @@
   z-index: 99;
 }
 
+.sidebar > h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  background-color: rgba(70, 25, 66);
+  padding: 7px 15px;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.sidebar > h3 > img {
+  width: 20px;
+  height: 20px;
+}
+
 .sidebar.activeSidebar {
   transform: translateX(0%);
 }
 
 .sidebar > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   list-style-type: none;
+  margin: 0;
+  padding: 10px;
 }
 
 .sidebar > ul > li > a {
+  display: block;
   color: white;
   text-decoration: none;
+  padding: 7px 7px 7px 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.sidebar > ul > li > a:hover {
+  text-decoration: underline;
+}
+
+.sidebar .active {
+  background-color: rgb(130, 66, 124);
+}
+
+.sidebar > button {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  border: none;
+  padding: 7px;
+  font-size: 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+  transition: ease 0.2s;
+}
+
+.sidebar > button:hover {
+  transform: scale(1.05);
+}
+
+.sidebar > button > img {
+  width: 20px;
+  height: 20px;
 }

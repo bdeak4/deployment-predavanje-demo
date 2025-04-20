@@ -9,5 +9,6 @@ export const routes: Routes = {
   QUIZZES: "/quiz",
   QUIZ: "/quiz/:id",
   PROFILE: "/profile",
+  LEADERBOARD: "/leaderboard",
   PAGE_NOT_FOUND: "/*",
 };

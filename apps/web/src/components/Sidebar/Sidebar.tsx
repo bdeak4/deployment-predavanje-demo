@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import c from "./Sidebar.module.css";
 import { NavLink } from "react-router-dom";
 import { useEffect, useRef } from "react";
+import userIcon from "../../assets/images/user-svgrepo-com.svg";
+import logoutIcon from "../../assets/images/logout-svgrepo-com.svg";
 
 export default function Sidebar({
   isOpen,
@@ -54,15 +56,16 @@ export default function Sidebar({
       className={`${c.sidebar} ${isOpen ? c.activeSidebar : ""}`}
       ref={sidebarRef}
     >
-      <h3>{userName}</h3>
+      <h3>
+        <img src={userIcon} alt="user icon" />
+        {userName}
+      </h3>
 
       <ul>
         <li>
           <NavLink
             to="/"
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
+            className={({ isActive }) => (isActive ? c.active : "")}
             onClick={() => setIsOpen(false)}
           >
             Home
@@ -71,9 +74,7 @@ export default function Sidebar({
         <li>
           <NavLink
             to="/quiz"
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
+            className={({ isActive }) => (isActive ? c.active : "")}
             onClick={() => setIsOpen(false)}
           >
             Quizzes
@@ -82,9 +83,7 @@ export default function Sidebar({
         <li>
           <NavLink
             to="/leaderboard"
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
+            className={({ isActive }) => (isActive ? c.active : "")}
             onClick={() => setIsOpen(false)}
           >
             Leaderboard
@@ -93,9 +92,7 @@ export default function Sidebar({
         <li>
           <NavLink
             to="/profile"
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
+            className={({ isActive }) => (isActive ? c.active : "")}
             onClick={() => setIsOpen(false)}
           >
             Profile
@@ -103,7 +100,9 @@ export default function Sidebar({
         </li>
       </ul>
 
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleLogout}>
+        Logout <img src={logoutIcon} alt="logout icon" />
+      </button>
     </div>
   );
 }
