@@ -9,6 +9,7 @@ import { PageNotFound } from "./pages/404Page";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components";
 import { HomePage } from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path={routes.HOME} element={<HomePage />}></Route>
             <Route path={routes.QUIZZES} element={<QuizzesPage />} />
             <Route path={routes.QUIZ} element={<QuizPage />} />
+            <Route path={routes.PROFILE} element={<ProfilePage />} />
           </Route>
 
           <Route path={routes.PAGE_NOT_FOUND} element={<PageNotFound />} />

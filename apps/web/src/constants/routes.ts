@@ -8,5 +8,6 @@ export const routes: Routes = {
   HOME: "/",
   QUIZZES: "/quiz",
   QUIZ: "/quiz/:id",
+  PROFILE: "/profile",
   PAGE_NOT_FOUND: "/*",
 };

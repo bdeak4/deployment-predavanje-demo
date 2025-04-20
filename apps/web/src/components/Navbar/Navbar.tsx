@@ -1,15 +1,15 @@
 import c from "./Navbar.module.css";
 import QuizLogo from "../../assets/images/QuizLogo.png";
 import { useNavigate } from "react-router";
-import { useAuthContext } from "../../context";
 import { useQuizCategoriesQuery } from "../../api";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import SearchIcon from "../../assets/images/icons8-search.svg";
+import Sidebar from "../Sidebar/Sidebar";
 
 type CategoriesType = { id: string; name: string; createdAt: string };
 
 export function Navbar() {
-  const { setAccessToken } = useAuthContext();
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { data } = useQuizCategoriesQuery();
 
@@ -27,10 +27,8 @@ export function Navbar() {
     navigate(`/quiz?${searchParams}`);
   };
 
-  const handleLogout = async () => {
-    localStorage.removeItem("access_token");
-    setAccessToken("");
-    navigate("/login", { replace: true });
+  const handleSetIsOpen = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -64,7 +62,16 @@ export function Navbar() {
           <img src={SearchIcon} onClick={handleSearchQuizzes} />
         </div>
 
-        <button onClick={handleLogout}>Logout</button>
+        <div
+          className={`${c.burgerMenuIcon} ${isOpen ? c.open : ""}`}
+          onClick={handleSetIsOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <Sidebar isOpen={isOpen} setIsOpen={handleSetIsOpen} />
       </div>
     </nav>
   );

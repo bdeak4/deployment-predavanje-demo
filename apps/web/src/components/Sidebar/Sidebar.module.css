@@ -1,0 +1,26 @@
+.sidebar {
+  position: fixed;
+  top: 80px;
+  right: 0px;
+  width: 250px;
+  height: 100vh;
+  background-color: rgb(96, 46, 92);
+  color: white;
+  padding: 30px 20px;
+  transition: 0.3s ease;
+  transform: translateX(100%);
+  z-index: 99;
+}
+
+.sidebar.activeSidebar {
+  transform: translateX(0%);
+}
+
+.sidebar > ul {
+  list-style-type: none;
+}
+
+.sidebar > ul > li > a {
+  color: white;
+  text-decoration: none;
+}

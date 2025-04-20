@@ -64,13 +64,15 @@ nav > .logo {
   cursor: pointer;
   background-color: rgb(96, 46, 92);
   color: white;
-  border: 1px solid white;
+  border: none;
+  box-shadow: 0 0 2px white;
 }
 
 .searchQuiz > input {
   padding: 7px;
   border-radius: 10px;
-  border: 1px solid white;
+  border: none;
+  box-shadow: 0 0 2px white;
 }
 
 .searchQuiz > img {
@@ -81,10 +83,45 @@ nav > .logo {
   background-color: rgb(96, 46, 92);
   padding: 5px;
   transition: ease 0.2ms;
-  border: 1px solid white;
+  box-shadow: 0 0 2px white;
 }
 
 .searchQuiz > img:hover {
   background-color: rgb(170, 129, 157);
   transform: scale(1.05);
+}
+
+.burgerMenuIcon {
+  width: 30px;
+  height: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 8px;
+  transition: 0.3s ease;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+.burgerMenuIcon:hover {
+  background-color: rgb(122, 66, 117);
+}
+
+.burgerMenuIcon > span {
+  display: block;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+
+.burgerMenuIcon.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6.6px, 6.6px);
+}
+.burgerMenuIcon.open span:nth-child(2) {
+  opacity: 0;
+}
+.burgerMenuIcon.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6.6px, -6.6px);
 }
