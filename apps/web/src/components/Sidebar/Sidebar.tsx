@@ -10,7 +10,7 @@ export default function Sidebar({
   setIsOpen,
 }: {
   isOpen: boolean;
-  setIsOpen: () => void;
+  setIsOpen: (open: boolean) => void;
 }) {
   const { accessToken, setAccessToken } = useAuthContext();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function Sidebar({
         !sidebarRef.current.contains(event.target as Node) &&
         isOpen
       ) {
-        setIsOpen();
+        setIsOpen(false);
       }
     }
 
@@ -63,7 +63,7 @@ export default function Sidebar({
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
-            onClick={setIsOpen}
+            onClick={() => setIsOpen(false)}
           >
             Home
           </NavLink>
@@ -74,7 +74,7 @@ export default function Sidebar({
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
-            onClick={setIsOpen}
+            onClick={() => setIsOpen(false)}
           >
             Quizzes
           </NavLink>
@@ -85,7 +85,7 @@ export default function Sidebar({
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
-            onClick={setIsOpen}
+            onClick={() => setIsOpen(false)}
           >
             Leaderboard
           </NavLink>
@@ -96,7 +96,7 @@ export default function Sidebar({
             className={({ isActive }) =>
               isActive ? "nav-link active" : "nav-link"
             }
-            onClick={setIsOpen}
+            onClick={() => setIsOpen(false)}
           >
             Profile
           </NavLink>

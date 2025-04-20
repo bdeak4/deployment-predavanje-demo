@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -46,12 +47,64 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @Get('profile')
+  @ApiOperation({ summary: 'Get a user by ID from access token' })
+  @ApiResponse({ status: 200, description: 'User found' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  findProfile(@Request() req: any) {
+    const { userId } = req.user;
+    return this.userService.findOne(userId);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a user by ID' })
   @ApiResponse({ status: 200, description: 'User found' })
   @ApiResponse({ status: 404, description: 'User not found' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
+  }
+
+  @Patch('profile')
+  @ApiOperation({ summary: 'Update a user by ID from access token' })
+  @ApiResponse({ status: 200, description: 'User updated successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiBody({ type: UpdateUserDto })
+  updateProfile(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
+    const { userId } = req.user;
+    return this.userService.update(userId, updateUserDto);
+  }
+
+  @Patch('name')
+  @ApiOperation({ summary: 'Update user name' })
+  @ApiResponse({ status: 200, description: 'User name updated successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiBody({ type: UpdateUserDto })
+  updateName(@Request() req: any, @Body() updateUserName: { name: string }) {
+    const { userId } = req.user;
+    return this.userService.updateName(userId, updateUserName.name);
+  }
+
+  @Patch('password')
+  @ApiOperation({ summary: 'Update user password' })
+  @ApiResponse({
+    status: 200,
+    description: 'User password updated successfully',
+  })
+  @ApiResponse({ status: 400, description: 'Invalid input' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiBody({ type: UpdateUserDto })
+  updatePassword(
+    @Request() req: any,
+    @Body() updateUserPassword: { password: string; currentPassword: string },
+  ) {
+    const { userId } = req.user;
+    return this.userService.updatePassword(
+      userId,
+      updateUserPassword.password,
+      updateUserPassword.currentPassword,
+    );
   }
 
   @Patch(':id')
@@ -62,6 +115,15 @@ export class UserController {
   @ApiBody({ type: UpdateUserDto })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
+  }
+
+  @Delete('profile')
+  @ApiOperation({ summary: 'Delete a user by ID from access token' })
+  @ApiResponse({ status: 200, description: 'User deleted successfully' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  removeProfile(@Request() req: any) {
+    const { userId } = req.user;
+    return this.userService.remove(userId);
   }
 
   @Delete(':id')

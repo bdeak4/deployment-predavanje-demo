@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "./base";
 
-interface UserQuizResult {
+type UserQuizResult = {
   score: number;
   quizId: string;
-}
+};
 
 export const useSubmitQuizScore = () => {
   return useMutation({

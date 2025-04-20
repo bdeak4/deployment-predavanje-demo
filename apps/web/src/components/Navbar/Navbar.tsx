@@ -27,8 +27,8 @@ export function Navbar() {
     navigate(`/quiz?${searchParams}`);
   };
 
-  const handleSetIsOpen = () => {
-    setIsOpen((prev) => !prev);
+  const handleSetIsOpen = (open: boolean) => {
+    setIsOpen(open);
   };
 
   return (
@@ -64,7 +64,7 @@ export function Navbar() {
 
         <div
           className={`${c.burgerMenuIcon} ${isOpen ? c.open : ""}`}
-          onClick={handleSetIsOpen}
+          onClick={() => setIsOpen(!isOpen)}
         >
           <span></span>
           <span></span>
