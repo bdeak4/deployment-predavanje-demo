@@ -13,21 +13,27 @@ export function QuizPage() {
 
   return (
     <section className={c.quizSection}>
-      {isFetching ? (
-        <p>{isError ? error.message : "Fetching quiz data..."}</p>
+      {isError ? (
+        <p>{error.message}</p>
       ) : (
         <>
-          <h1>{data?.title}</h1>
-          {isPlayed ? (
-            <QuizGameplay quizId={id ? id : ""} />
+          {isFetching ? (
+            <p>Fetching quiz data...</p>
           ) : (
             <>
-              <img
-                src={data?.img || imagePlaceholder}
-                onError={(e) => (e.currentTarget.src = imagePlaceholder)}
-                alt={data?.title}
-              />
-              <button onClick={() => setIsPlayed(true)}>Play</button>
+              <h1>{data?.title}</h1>
+              {isPlayed ? (
+                <QuizGameplay quizId={id ? id : ""} />
+              ) : (
+                <>
+                  <img
+                    src={data?.img || imagePlaceholder}
+                    onError={(e) => (e.currentTarget.src = imagePlaceholder)}
+                    alt={data?.title}
+                  />
+                  <button onClick={() => setIsPlayed(true)}>Play</button>
+                </>
+              )}
             </>
           )}
         </>

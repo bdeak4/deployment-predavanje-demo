@@ -81,44 +81,78 @@ export default function Sidebar({
         </div>
       )}
 
-      <ul>
-        <li>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? c.active : "")}
-            onClick={() => setIsOpen(false)}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/quiz"
-            className={({ isActive }) => (isActive ? c.active : "")}
-            onClick={() => setIsOpen(false)}
-          >
-            Quizzes
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/leaderboard"
-            className={({ isActive }) => (isActive ? c.active : "")}
-            onClick={() => setIsOpen(false)}
-          >
-            Leaderboard
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/profile"
-            className={({ isActive }) => (isActive ? c.active : "")}
-            onClick={() => setIsOpen(false)}
-          >
-            Profile
-          </NavLink>
-        </li>
-      </ul>
+      {userRole === "USER" ? (
+        <ul>
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+              end
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/quiz"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+            >
+              Quizzes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/rating"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+            >
+              Rating
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+            >
+              Profile
+            </NavLink>
+          </li>
+        </ul>
+      ) : (
+        <ul>
+          <li>
+            <NavLink
+              to="/admin"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+              end
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/admin/leaderboard"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+            >
+              Leaderboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/admin/create-quiz"
+              className={({ isActive }) => (isActive ? c.active : "")}
+              onClick={() => setIsOpen(false)}
+            >
+              Create quiz
+            </NavLink>
+          </li>
+        </ul>
+      )}
 
       <button onClick={handleLogout}>
         Logout <img src={logoutIcon} alt="logout icon" />

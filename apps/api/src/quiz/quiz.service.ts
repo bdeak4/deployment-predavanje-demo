@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -34,7 +38,7 @@ export class QuizService {
       where: { id },
     });
 
-    if (!quiz) throw new BadRequestException('Quiz not found');
+    if (!quiz) throw new NotFoundException('Quiz not found');
 
     return quiz;
   }

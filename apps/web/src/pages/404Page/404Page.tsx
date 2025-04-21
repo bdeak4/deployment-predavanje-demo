@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import c from "./404Page.module.css";
 
 export function PageNotFound() {
+  const navigate = useNavigate();
+
   return (
     <section className={c.pageNotFoundSection}>
       <div className={c.header}>
@@ -11,7 +13,7 @@ export function PageNotFound() {
 
       <p>That's not the right answer! Try again.</p>
 
-      <Link to="/">Go Back</Link>
+      <button onClick={() => navigate(-1)}>Go Back</button>
 
       <div className={`${c.fallingPaper} ${c.paper1}`}>404</div>
       <div className={`${c.fallingPaper} ${c.paper2}`}>404</div>

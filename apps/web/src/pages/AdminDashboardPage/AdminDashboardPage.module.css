@@ -1,0 +1,11 @@
+.adminDashboardPageSection {
+  display: flex;
+  flex-direction: column;
+  padding: 100px 0;
+}
+
+.adminDashboardPageSection > h1 {
+  text-align: center;
+  font-size: 34px;
+  text-transform: uppercase;
+}

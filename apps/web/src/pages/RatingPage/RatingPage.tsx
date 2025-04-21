@@ -1,10 +1,10 @@
-import c from "./LeaderboardPage.module.css";
+import c from "./RatingPage.module.css";
 import rankingImage from "../../assets/images/rankingImage.png";
 import { useUserRankingQuery } from "../../api";
 import { useAuthContext } from "../../context";
 import { jwtDecode } from "jwt-decode";
 
-export default function LeaderboardPage() {
+export default function RatingPage() {
   const { accessToken } = useAuthContext();
   let userId;
 
@@ -16,8 +16,8 @@ export default function LeaderboardPage() {
   const { data, isFetching, isError, error } = useUserRankingQuery(userId);
 
   return (
-    <section className={c.leaderboardPageSection}>
-      <h1>Leaderboard</h1>
+    <section className={c.ratingPageSection}>
+      <h1>Rating</h1>
       {isError ? (
         <p>{error.message}</p>
       ) : (

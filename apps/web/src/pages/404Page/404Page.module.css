@@ -47,7 +47,7 @@
   z-index: 2;
 }
 
-.pageNotFoundSection > a {
+.pageNotFoundSection > button {
   padding: 10px 20px;
   background-color: rgb(96, 46, 92);
   color: white;
@@ -57,9 +57,13 @@
   margin-top: 40px;
   transition: ease 0.2s;
   z-index: 2;
+  cursor: pointer;
+  border: none;
+  font-family: var(--nunito-font-extra-bold);
+  box-shadow: 0 0 2px white;
 }
 
-.pageNotFoundSection > a:hover {
+.pageNotFoundSection > button:hover {
   background-color: rgba(70, 25, 66);
   transform: scale(1.1);
 }
