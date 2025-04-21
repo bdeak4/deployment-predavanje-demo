@@ -1,11 +1,42 @@
 .adminLeaderboardPageSection {
   display: flex;
   flex-direction: column;
-  padding: 100px 0;
+  padding: 100px 20px;
 }
 
 .adminLeaderboardPageSection > h1 {
   text-align: center;
   font-size: 34px;
   text-transform: uppercase;
+}
+
+.leaderboardTable {
+  border-radius: 20px;
+  overflow: hidden;
+  border-collapse: collapse;
+  box-shadow: 0 0 5px rgb(96, 46, 92);
+}
+
+.leaderboardTable td,
+.leaderboardTable th {
+  border: 1px solid white;
+}
+
+.tableHead {
+  background-color: rgb(96, 46, 92);
+  color: white;
+}
+
+.tableHead > tr > th {
+  padding: 10px;
+  font-size: 18px;
+}
+
+.tableBody {
+  background-color: rgb(232, 232, 232);
+}
+
+.tableBody > tr > td {
+  padding: 10px;
+  text-align: center;
 }
