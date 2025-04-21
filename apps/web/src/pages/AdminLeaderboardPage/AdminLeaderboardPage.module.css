@@ -1,6 +1,7 @@
 .adminLeaderboardPageSection {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 100px 20px;
 }
 
@@ -8,35 +9,49 @@
   text-align: center;
   font-size: 34px;
   text-transform: uppercase;
+  color: black;
+  margin-bottom: 40px;
 }
 
 .leaderboardTable {
-  border-radius: 20px;
+  border-radius: 12px;
   overflow: hidden;
   border-collapse: collapse;
-  box-shadow: 0 0 5px rgb(96, 46, 92);
+  width: 90%;
+  max-width: 1000px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 25px rgba(96, 46, 92, 0.2);
 }
 
 .leaderboardTable td,
 .leaderboardTable th {
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s;
 }
 
 .tableHead {
-  background-color: rgb(96, 46, 92);
+  background: linear-gradient(135deg, rgb(96, 46, 92) 0%, rgb(72, 29, 68) 100%);
   color: white;
 }
 
 .tableHead > tr > th {
-  padding: 10px;
-  font-size: 18px;
+  padding: 16px 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .tableBody {
-  background-color: rgb(232, 232, 232);
+  background-color: white;
 }
 
 .tableBody > tr > td {
-  padding: 10px;
+  padding: 14px 12px;
   text-align: center;
+  color: #333;
+}
+
+.tableBody > tr:nth-child(even) {
+  background-color: rgba(232, 232, 232, 0.5);
 }

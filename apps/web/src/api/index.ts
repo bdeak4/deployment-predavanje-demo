@@ -12,3 +12,4 @@ export * from "./useUpdateUserName";
 export * from "./useUpdateUserPassword";
 export * from "./useUserRankingQuery";
 export * from "./useLeaderboardQuery";
+export * from "./useCreateQuiz";
