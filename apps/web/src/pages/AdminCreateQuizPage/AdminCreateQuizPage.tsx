@@ -38,10 +38,12 @@ export default function AdminCreateQuizPage() {
 
       <form onSubmit={handleFormSubmit} className={c.createQuizForm}>
         <label>
-          Title: <input type="text" ref={titleRef} required />
+          Title:{" "}
+          <input type="text" ref={titleRef} placeholder="Title" required />
         </label>
         <label>
-          Image URL: <input type="url" ref={imageRef} required />
+          Image URL:{" "}
+          <input type="url" ref={imageRef} placeholder="Image URL" required />
         </label>
 
         <label>

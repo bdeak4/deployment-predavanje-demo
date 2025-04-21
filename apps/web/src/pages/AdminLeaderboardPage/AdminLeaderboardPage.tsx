@@ -4,8 +4,6 @@ import c from "./AdminLeaderboardPage.module.css";
 export default function AdminLeaderboardPage() {
   const { data, isFetching, isError, error } = useLeaderboardQuery();
 
-  console.log(data);
-
   return (
     <section className={c.adminLeaderboardPageSection}>
       <h1>Leaderboard</h1>
