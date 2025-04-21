@@ -23,4 +23,5 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: rgb(240, 225, 235);
+  overflow: hidden;
 }

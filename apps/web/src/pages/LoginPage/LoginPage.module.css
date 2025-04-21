@@ -14,6 +14,10 @@
   box-shadow: 0 0 10px rgb(122, 66, 117);
 }
 
+.loginSection > h1 {
+  font-size: 34px;
+}
+
 .navLinks {
   display: flex;
   align-items: center;
@@ -22,10 +26,6 @@
   overflow: hidden;
   font-family: var(--nunito-font-bold);
   border: 1px solid rgb(240, 225, 235);
-}
-
-.loginSection > h1 {
-  font-size: 34px;
 }
 
 .navLinks > a {

@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserQuizResultDto } from './dto/create-user-quiz-result.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { UpdateUserQuizResultDto } from './dto/update-user-quiz-result.dto';
@@ -119,7 +123,9 @@ export class UserQuizResultService {
     );
 
     if (userRatingIndex === -1)
-      throw new BadRequestException('User rating not found');
+      throw new NotFoundException(
+        "You don't have any rating yet. You have to complete atleast one quiz to get rating.",
+      );
 
     return { rating: userRatingIndex + 1 };
   }

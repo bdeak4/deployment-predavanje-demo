@@ -1,0 +1,38 @@
+.leaderboardPageSection {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 100px 0;
+  gap: 20px;
+}
+
+.leaderboardPageSection > h1 {
+  text-align: center;
+  font-size: 34px;
+  text-transform: uppercase;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  position: relative;
+}
+
+.imageContainer > h3 {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-42%, -50%);
+  font-size: 45px;
+  margin: 0;
+  font-family: var(--nunito-font-extra-bold);
+}
+
+.imageContainer > img {
+  width: 100%;
+}
+
+.leaderboardPageSection > p {
+  font-size: 18px;
+}

@@ -10,3 +10,4 @@ export * from "./useUserQuery";
 export * from "./useQuestionAnswers";
 export * from "./useUpdateUserName";
 export * from "./useUpdateUserPassword";
+export * from "./useUserRankingQuery";

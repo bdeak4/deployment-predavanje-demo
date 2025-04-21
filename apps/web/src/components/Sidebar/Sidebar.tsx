@@ -3,7 +3,7 @@ import { useAuthContext } from "../../context";
 import { jwtDecode } from "jwt-decode";
 import c from "./Sidebar.module.css";
 import { NavLink } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import userIcon from "../../assets/images/user-svgrepo-com.svg";
 import logoutIcon from "../../assets/images/logout-svgrepo-com.svg";
 
@@ -14,15 +14,18 @@ export default function Sidebar({
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 }) {
+  const [userRole, setUserRole] = useState("USER");
   const { accessToken, setAccessToken } = useAuthContext();
   const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   let userName;
+  let role;
 
   if (accessToken) {
     const decoded: any = jwtDecode(accessToken);
     userName = decoded.name;
+    role = decoded.role;
   }
 
   const handleLogout = async () => {
@@ -60,6 +63,23 @@ export default function Sidebar({
         <img src={userIcon} alt="user icon" />
         {userName}
       </h3>
+
+      {role === "ADMIN" && (
+        <div className={c.navLinks}>
+          <a
+            className={userRole === "USER" ? c.activeRole : ""}
+            onClick={() => setUserRole("USER")}
+          >
+            User
+          </a>
+          <a
+            className={userRole === "ADMIN" ? c.activeRole : ""}
+            onClick={() => setUserRole("ADMIN")}
+          >
+            Admin
+          </a>
+        </div>
+      )}
 
       <ul>
         <li>
