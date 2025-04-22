@@ -65,7 +65,10 @@ export function Navbar() {
 
         <div
           className={`${c.burgerMenuIcon} ${isOpen ? c.open : ""}`}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
           ref={burgerIconRef}
         >
           <span></span>
