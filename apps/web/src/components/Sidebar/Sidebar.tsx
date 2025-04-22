@@ -7,13 +7,17 @@ import { useEffect, useRef, useState } from "react";
 import userIcon from "../../assets/images/user-svgrepo-com.svg";
 import logoutIcon from "../../assets/images/logout-svgrepo-com.svg";
 
+type SidebarProps = {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  burgerIconRef: React.RefObject<HTMLDivElement | null>;
+};
+
 export default function Sidebar({
   isOpen,
   setIsOpen,
-}: {
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-}) {
+  burgerIconRef,
+}: SidebarProps) {
   const [userRole, setUserRole] = useState("USER");
   const { accessToken, setAccessToken } = useAuthContext();
   const navigate = useNavigate();
@@ -37,8 +41,8 @@ export default function Sidebar({
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node) &&
+        !sidebarRef.current?.contains(event.target as Node) &&
+        !burgerIconRef.current?.contains(event.target as Node) &&
         isOpen
       ) {
         setIsOpen(false);
@@ -52,7 +56,7 @@ export default function Sidebar({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, setIsOpen]);
+  }, [isOpen, setIsOpen, burgerIconRef]);
 
   return (
     <div

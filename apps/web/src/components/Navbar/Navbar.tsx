@@ -15,6 +15,7 @@ export function Navbar() {
 
   const categoryRef = useRef<HTMLSelectElement | null>(null);
   const titleRef = useRef<HTMLInputElement | null>(null);
+  const burgerIconRef = useRef<HTMLDivElement>(null);
 
   const handleSearchQuizzes = () => {
     const selectedTitle = titleRef.current?.value || "";
@@ -65,13 +66,18 @@ export function Navbar() {
         <div
           className={`${c.burgerMenuIcon} ${isOpen ? c.open : ""}`}
           onClick={() => setIsOpen(!isOpen)}
+          ref={burgerIconRef}
         >
           <span></span>
           <span></span>
           <span></span>
         </div>
 
-        <Sidebar isOpen={isOpen} setIsOpen={handleSetIsOpen} />
+        <Sidebar
+          isOpen={isOpen}
+          setIsOpen={handleSetIsOpen}
+          burgerIconRef={burgerIconRef}
+        />
       </div>
     </nav>
   );

@@ -17,7 +17,7 @@ export default function RatingPage() {
 
   return (
     <section className={c.ratingPageSection}>
-      <h1>Rating</h1>
+      <h1>Ranking</h1>
       {isError ? (
         <p>{error.message}</p>
       ) : (
