@@ -1,6 +1,7 @@
 import { FormEvent, useRef } from "react";
 import c from "./AdminCreateQuizPage.module.css";
 import { useCreateQuiz, useQuizCategoriesQuery } from "../../api";
+import Spinner from "../../components/Spinner/Spinner";
 
 type CategoriesType = { id: string; name: string; createdAt: string };
 
@@ -10,7 +11,7 @@ export default function AdminCreateQuizPage() {
   const imageRef = useRef<HTMLInputElement | null>(null);
   const categoryRef = useRef<HTMLSelectElement | null>(null);
 
-  const { mutateAsync, isSuccess, isError, error } = useCreateQuiz();
+  const { mutateAsync, isSuccess, isPending, isError, error } = useCreateQuiz();
 
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -51,11 +52,9 @@ export default function AdminCreateQuizPage() {
           <select
             name="quizCategory"
             id="quizCategory"
-            defaultValue=""
             required
             ref={categoryRef}
           >
-            <option value="">All</option>
             {Array.isArray(data) &&
               data.map((qc: CategoriesType) => (
                 <option key={qc.id} value={qc.id}>
@@ -69,6 +68,12 @@ export default function AdminCreateQuizPage() {
 
         {isError && <p className={c.error}>{error.message}</p>}
         {isSuccess && <p className={c.success}>Quiz created successfully!</p>}
+
+        {isPending && (
+          <div className={c.spinnerContainer}>
+            <Spinner />
+          </div>
+        )}
       </form>
     </section>
   );

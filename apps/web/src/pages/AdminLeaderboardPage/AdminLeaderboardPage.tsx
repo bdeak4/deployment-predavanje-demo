@@ -1,4 +1,5 @@
 import { useLeaderboardQuery } from "../../api";
+import Spinner from "../../components/Spinner/Spinner";
 import c from "./AdminLeaderboardPage.module.css";
 
 export default function AdminLeaderboardPage() {
@@ -13,7 +14,7 @@ export default function AdminLeaderboardPage() {
       ) : (
         <>
           {isFetching ? (
-            <p>Fetching leaderboard data...</p>
+            <Spinner />
           ) : (
             <table className={c.leaderboardTable}>
               <thead className={c.tableHead}>

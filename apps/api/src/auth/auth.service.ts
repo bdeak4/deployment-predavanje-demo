@@ -62,11 +62,9 @@ export class AuthService {
       },
     });
 
-    return {
-      name: newUser.name,
-      email: newUser.email,
-      role: newUser.role,
-    };
+    const token = this.generateToken(newUser.id, newUser.role, newUser.name);
+
+    return { access_token: token };
   }
 
   private generateToken(userId: string, role: string, name: string) {

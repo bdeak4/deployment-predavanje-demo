@@ -1,0 +1,25 @@
+.spinner {
+  margin: 0 auto;
+  font-size: 50px;
+  font-weight: bold;
+  color: rgba(70, 25, 66);
+  animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 60px;
+  border: 8px solid rgba(70, 25, 66, 0.3);
+  border-top: 8px solid rgba(70, 25, 66);
+  border-radius: 50%;
+  font-family: var(--nunito-font-extra-bold);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

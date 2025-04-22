@@ -3,14 +3,15 @@ import { useQuizQuestionsQuery } from "../../api/useQuizQuestionsQuery";
 import QuestionAnswers from "./QuestionAnswers";
 import { useSubmitQuizScore } from "../../api";
 import c from "./QuizGameplay.module.css";
+import Spinner from "../Spinner/Spinner";
 
 export default function QuizGameplay({ quizId }: { quizId: string }) {
   const [score, setScore] = useState<number>(0);
   const [questionCount, setQuestionCount] = useState<number>(1);
-  const { data } = useQuizQuestionsQuery(quizId);
+  const { data, isFetching, isError, error } = useQuizQuestionsQuery(quizId);
   const { mutateAsync } = useSubmitQuizScore();
 
-  let currentQuestion = null;
+  let currentQuestion;
 
   if (data && data.length) {
     currentQuestion = data[questionCount - 1];
@@ -39,27 +40,37 @@ export default function QuizGameplay({ quizId }: { quizId: string }) {
     );
   }
 
+  if (!data?.length) {
+    return <p>There are no questions for this quiz yet!</p>;
+  }
+
   return (
     <>
-      {currentQuestion ? (
-        <div className={c.questionContainer}>
-          <div className={c.statsContainer}>
-            <p>Score: {score}</p>
-            <p>
-              Question: {questionCount}/{data && data.length}
-            </p>
-          </div>
-
-          <h3 className={c.question}>{currentQuestion.text}</h3>
-          <QuestionAnswers
-            questionId={currentQuestion.id}
-            questionType={currentQuestion.type}
-            handleSubmitQuizResult={handleSubmitQuizResult}
-            setScore={setScore}
-          />
-        </div>
+      {isError ? (
+        <p>{error?.message}</p>
       ) : (
-        <p>Fetching question data...</p>
+        <>
+          {currentQuestion && !isFetching ? (
+            <div className={c.questionContainer}>
+              <div className={c.statsContainer}>
+                <p>Score: {score}</p>
+                <p>
+                  Question: {questionCount}/{data && data.length}
+                </p>
+              </div>
+
+              <h3 className={c.question}>{currentQuestion.text}</h3>
+              <QuestionAnswers
+                questionId={currentQuestion.id}
+                questionType={currentQuestion.type}
+                handleSubmitQuizResult={handleSubmitQuizResult}
+                setScore={setScore}
+              />
+            </div>
+          ) : (
+            <Spinner />
+          )}
+        </>
       )}
     </>
   );

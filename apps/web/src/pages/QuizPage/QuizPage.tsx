@@ -4,6 +4,7 @@ import c from "./QuizPage.module.css";
 import QuizGameplay from "../../components/QuizGameplay/QuizGameplay";
 import imagePlaceholder from "../../assets/images/imagePlaceholder.png";
 import { useState } from "react";
+import Spinner from "../../components/Spinner/Spinner";
 
 export function QuizPage() {
   const { id } = useParams<{ id: string }>();
@@ -18,7 +19,7 @@ export function QuizPage() {
       ) : (
         <>
           {isFetching ? (
-            <p>Fetching quiz data...</p>
+            <Spinner />
           ) : (
             <>
               <h1>{data?.title}</h1>

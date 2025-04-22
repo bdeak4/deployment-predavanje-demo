@@ -9,3 +9,44 @@
   font-size: 34px;
   text-transform: uppercase;
 }
+
+.cardsContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: fit-content;
+  background-color: rgb(232, 232, 232);
+  border-radius: 20px;
+  border: 1px solid white;
+  overflow: hidden;
+  cursor: pointer;
+  transition: ease 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 0 5px rgba(70, 25, 66);
+  transform: scale(1.03);
+}
+
+.card > img {
+  width: calc(100% - 40px);
+  padding: 20px 0;
+}
+
+.card > h3 {
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 15px 0 20px 0;
+  font-size: 24px;
+  background-color: white;
+}

@@ -5,6 +5,7 @@ import {
   useUserQuery,
 } from "../../api";
 import c from "./ProfilePage.module.css";
+import Spinner from "../../components/Spinner/Spinner";
 
 export default function ProfilePage() {
   const [changeData, setChangeData] = useState("");
@@ -42,6 +43,24 @@ export default function ProfilePage() {
     }
     setChangeData("");
   };
+
+  if (userQuery.isFetching) {
+    return (
+      <section className={c.profilePageSection}>
+        <h1>Profile</h1>
+        <Spinner />
+      </section>
+    );
+  }
+
+  if (userQuery.isError) {
+    return (
+      <section className={c.profilePageSection}>
+        <h1>Profile</h1>
+        <p>{userQuery.error.message}</p>
+      </section>
+    );
+  }
 
   return (
     <section className={c.profilePageSection}>
@@ -113,6 +132,25 @@ export default function ProfilePage() {
             Change password
           </button>
         )}
+        {updateUserName.isSuccess && (
+          <p className={c.success}>Username changed successfully!</p>
+        )}
+        {updateUserName.isError && (
+          <p className={c.error}>{updateUserName.error.message}</p>
+        )}
+
+        {updateUserPassword.isSuccess && (
+          <p className={c.success}>User password changed successfully!</p>
+        )}
+        {updateUserPassword.isError && (
+          <p className={c.error}>{updateUserPassword.error.message}</p>
+        )}
+
+        {updateUserName.isPending || updateUserPassword.isPending ? (
+          <div className={c.spinnerContainer}>
+            <Spinner />
+          </div>
+        ) : null}
       </div>
     </section>
   );

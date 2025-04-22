@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+import { useAuthContext } from "../context";
 
 interface User {
   name: string;
@@ -8,6 +9,7 @@ interface User {
 }
 
 export const useRegister = () => {
+  const { setAccessToken } = useAuthContext();
   const navigate = useNavigate();
 
   return useMutation({
@@ -26,9 +28,10 @@ export const useRegister = () => {
 
       return res.json();
     },
-    onSuccess: (data) => {
-      console.log("User registered successfully:", data);
-      navigate("/login");
+    onSuccess: ({ access_token }) => {
+      setAccessToken(access_token);
+      localStorage.setItem("access_token", access_token);
+      navigate("/");
     },
   });
 };

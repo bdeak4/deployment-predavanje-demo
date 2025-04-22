@@ -2,6 +2,7 @@ import { useRef } from "react";
 import c from "./LoginPage.module.css";
 import { NavLink } from "react-router-dom";
 import { useLogin } from "../../api";
+import QuestionMarks from "../../components/QuestionMarks/QuestionMarks";
 
 export function LoginPage() {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -25,42 +26,46 @@ export function LoginPage() {
   };
 
   return (
-    <section className={c.loginSection}>
-      <div className={c.navLinks}>
-        <NavLink
-          to="/login"
-          className={({ isActive }) => (isActive ? c.active : "")}
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/register"
-          className={({ isActive }) => (isActive ? c.active : "")}
-        >
-          Register
-        </NavLink>
-      </div>
-      <h1>Login</h1>
-      <form className={c.loginForm} onSubmit={handleSubmit}>
-        <label>
-          Email:{" "}
-          <input type="email" placeholder="Email" ref={emailRef} required />
-        </label>
-        <label>
-          Password:{" "}
-          <input
-            type="password"
-            placeholder="Password"
-            ref={passwordRef}
-            minLength={6}
-            required
-          />
-        </label>
-        <button type="submit" disabled={isPending}>
-          Submit
-        </button>
-        {isError && <p>{error.message}</p>}
-      </form>
-    </section>
+    <>
+      <section className={c.loginSection}>
+        <div className={c.navLinks}>
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? c.active : "")}
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className={({ isActive }) => (isActive ? c.active : "")}
+          >
+            Register
+          </NavLink>
+        </div>
+        <h1>Login</h1>
+        <form className={c.loginForm} onSubmit={handleSubmit}>
+          <label>
+            Email:{" "}
+            <input type="email" placeholder="Email" ref={emailRef} required />
+          </label>
+          <label>
+            Password:{" "}
+            <input
+              type="password"
+              placeholder="Password"
+              ref={passwordRef}
+              minLength={6}
+              required
+            />
+          </label>
+          <button type="submit" disabled={isPending}>
+            Submit
+          </button>
+          {isError && <p>{error.message}</p>}
+        </form>
+      </section>
+
+      <QuestionMarks />
+    </>
   );
 }

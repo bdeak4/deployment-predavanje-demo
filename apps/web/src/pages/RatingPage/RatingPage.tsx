@@ -3,6 +3,7 @@ import rankingImage from "../../assets/images/rankingImage.png";
 import { useUserRankingQuery } from "../../api";
 import { useAuthContext } from "../../context";
 import { jwtDecode } from "jwt-decode";
+import Spinner from "../../components/Spinner/Spinner";
 
 export default function RatingPage() {
   const { accessToken } = useAuthContext();
@@ -23,7 +24,7 @@ export default function RatingPage() {
       ) : (
         <>
           {isFetching ? (
-            <p>Fetching data...</p>
+            <Spinner />
           ) : (
             <>
               <div className={c.imageContainer}>

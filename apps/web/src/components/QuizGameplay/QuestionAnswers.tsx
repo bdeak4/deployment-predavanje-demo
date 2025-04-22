@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { useQuestionAnswers } from "../../api/useQuestionAnswers";
 import c from "./QuestionAnswers.module.css";
+import Spinner from "../Spinner/Spinner";
+import { Navigate } from "react-router";
 
 type QuestionAnswers = {
   id: string;
@@ -23,7 +25,7 @@ export default function QuestionAnswers({
   handleSubmitQuizResult,
 }: QuestionAnswerProps) {
   const typedAnswerRef = useRef<HTMLInputElement | null>(null);
-  const { data } = useQuestionAnswers(questionId);
+  const { data, isFetching, isError, error } = useQuestionAnswers(questionId);
 
   const handleMultipleChoiceClick = (isCorrect: boolean) => {
     handleSubmitQuizResult();
@@ -41,6 +43,18 @@ export default function QuestionAnswers({
       setScore((prev) => prev + 1);
     }
   };
+
+  if (isFetching) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <p>{error.message}</p>;
+  }
+
+  if (!data?.length) {
+    return <Navigate to="/quiz" replace={true} />;
+  }
 
   if (questionType === "MULTIPLE_CHOICE" || questionType === "TRUE_FALSE") {
     return (

@@ -2,6 +2,7 @@ import { useQuizzesQuery } from "../../api";
 import { useNavigate, useSearchParams } from "react-router";
 import c from "./QuizzesPage.module.css";
 import imagePlaceholder from "../../assets/images/imagePlaceholder.png";
+import Spinner from "../../components/Spinner/Spinner";
 
 type QuizzesType = {
   id: string;
@@ -27,29 +28,43 @@ export function QuizzesPage() {
     navigate(`/quiz/${quizId}`);
   };
 
+  if (!data?.length) {
+    return (
+      <section className={c.quizzesSection}>
+        <h1>Quizzes</h1>
+        <p>There are no quizzes yet!</p>
+      </section>
+    );
+  }
+
   return (
     <section className={c.quizzesSection}>
       <h1>Quizzes</h1>
-      {isFetching ? (
-        <p>{isError ? error.message : "Fetching data..."}</p>
+      {isError ? (
+        <p>{error.message}</p>
       ) : (
-        <div className={c.quizzesContainer}>
-          {Array.isArray(data) &&
-            data.map((q: QuizzesType) => (
-              <div
-                key={q.id}
-                className={c.quizBox}
-                onClick={() => handleQuizClick(q.id)}
-              >
-                <img
-                  src={q.img}
-                  onError={(e) => (e.currentTarget.src = imagePlaceholder)}
-                  alt={q.title}
-                />
-                <h3>{q.title}</h3>
-              </div>
-            ))}
-        </div>
+        <>
+          {isFetching ? (
+            <Spinner />
+          ) : (
+            <div className={c.quizzesContainer}>
+              {data.map((q: QuizzesType) => (
+                <div
+                  key={q.id}
+                  className={c.quizBox}
+                  onClick={() => handleQuizClick(q.id)}
+                >
+                  <img
+                    src={q.img}
+                    onError={(e) => (e.currentTarget.src = imagePlaceholder)}
+                    alt={q.title}
+                  />
+                  <h3>{q.title}</h3>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </section>
   );

@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import c from "./RegisterPage.module.css";
 import { useRef, useState } from "react";
 import { useRegister } from "../../api";
+import QuestionMarks from "../../components/QuestionMarks/QuestionMarks";
 export function RegisterPage() {
   const [inputError, setInputError] = useState<string>("");
   const { mutateAsync, isPending, isError, error } = useRegister();
@@ -34,62 +35,66 @@ export function RegisterPage() {
   };
 
   return (
-    <section className={c.registerSection}>
-      <div className={c.navLinks}>
-        <NavLink
-          to="/login"
-          className={({ isActive }) => (isActive ? c.active : "")}
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/register"
-          className={({ isActive }) => (isActive ? c.active : "")}
-        >
-          Register
-        </NavLink>
-      </div>
-      <h1>Register</h1>
-      <form className={c.registerForm} onSubmit={handleOnSubmit}>
-        <label>
-          Name:{" "}
-          <input
-            type="text"
-            placeholder="Name"
-            minLength={3}
-            required
-            ref={nameRef}
-          />
-        </label>
-        <label>
-          Email:{" "}
-          <input type="email" placeholder="Email" required ref={emailRef} />
-        </label>
-        <label>
-          Password:{" "}
-          <input
-            type="password"
-            placeholder="Password"
-            minLength={6}
-            required
-            ref={passwordRef}
-          />
-        </label>
-        <label>
-          Repeat password:{" "}
-          <input
-            type="password"
-            placeholder="Repeat password"
-            required
-            ref={repeatedPasswordRef}
-          />
-        </label>
-        <button type="submit" disabled={isPending}>
-          {isPending ? "Registering..." : "Submit"}
-        </button>
-        {inputError && <p>{inputError}</p>}
-        {isError && <p>{error.message}</p>}
-      </form>
-    </section>
+    <>
+      <section className={c.registerSection}>
+        <div className={c.navLinks}>
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? c.active : "")}
+          >
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className={({ isActive }) => (isActive ? c.active : "")}
+          >
+            Register
+          </NavLink>
+        </div>
+        <h1>Register</h1>
+        <form className={c.registerForm} onSubmit={handleOnSubmit}>
+          <label>
+            Name:{" "}
+            <input
+              type="text"
+              placeholder="Name"
+              minLength={3}
+              required
+              ref={nameRef}
+            />
+          </label>
+          <label>
+            Email:{" "}
+            <input type="email" placeholder="Email" required ref={emailRef} />
+          </label>
+          <label>
+            Password:{" "}
+            <input
+              type="password"
+              placeholder="Password"
+              minLength={6}
+              required
+              ref={passwordRef}
+            />
+          </label>
+          <label>
+            Repeat password:{" "}
+            <input
+              type="password"
+              placeholder="Repeat password"
+              required
+              ref={repeatedPasswordRef}
+            />
+          </label>
+          <button type="submit" disabled={isPending}>
+            {isPending ? "Registering..." : "Submit"}
+          </button>
+          {inputError && <p>{inputError}</p>}
+          {isError && <p>{error.message}</p>}
+        </form>
+      </section>
+
+      <QuestionMarks />
+    </>
   );
 }

@@ -114,11 +114,11 @@
     top: -100px;
     opacity: 1;
   }
-  80% {
+  85% {
     opacity: 1;
   }
   100% {
-    top: 100vh;
+    top: calc(100vh - 50px);
     opacity: 0;
   }
 }
