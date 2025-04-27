@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "./base";
+import { QuizType } from "./useQuizzesQuery";
 
-export type QuizType = {
-  categoryId: string;
-  createdAt: string;
-  id: string;
-  img: string;
-  title: string;
-};
+// export type QuizType = {
+//   categoryId: string;
+//   createdAt: string;
+//   id: string;
+//   img: string;
+//   title: string;
+// };
 
 export const useQuizQuery = (quizId: string) => {
   return useQuery<QuizType>({

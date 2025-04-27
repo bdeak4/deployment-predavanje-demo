@@ -3,7 +3,8 @@
     "turbo": "^2.5.0"
   },
   "scripts": {
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "build": "turbo run build"
   },
   "packageManager": "npm@8.5.0",
   "workspaces": [
